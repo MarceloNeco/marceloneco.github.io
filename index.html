@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Marcelo Neco | Portal de Projetos</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; }
+    body { background-color: #0d1117; color: #c9d1d9; display: flex; flex-direction: column; align-items: center; min-height: 100vh; padding: 2rem; }
+    header { text-align: center; margin-bottom: 3rem; margin-top: 1rem; }
+    h1 { color: #58a6ff; font-size: 2.2rem; margin-bottom: 0.5rem; }
+    p.subtitle { color: #8b949e; font-size: 1.1rem; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; width: 100%; max-width: 900px; }
+    .card { background-color: #161b22; border: 1px solid #30363d; border-radius: 10px; padding: 1.5rem; text-decoration: none; color: inherit; transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s; display: flex; flex-direction: column; justify-content: space-between; }
+    .card:hover { transform: translateY(-4px); border-color: #58a6ff; box-shadow: 0 4px 12px rgba(88, 166, 255, 0.15); }
+    .card-content h2 { color: #f0f6fc; font-size: 1.3rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem; }
+    .card-content p { color: #8b949e; font-size: 0.95rem; line-height: 1.4; }
+    .btn-link { margin-top: 1.2rem; display: inline-block; color: #58a6ff; font-weight: 600; font-size: 0.9rem; }
+    footer { margin-top: auto; padding-top: 3rem; color: #8b949e; font-size: 0.9rem; text-align: center; }
+    footer a { color: #58a6ff; text-decoration: none; font-weight: 500; }
+    footer a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>👋 Portal de Projetos — Marcelo Neco</h1>
+    <p class="subtitle">Aplicações web desenvolvidas e hospedadas via GitHub Pages</p>
+  </header>
+
+  <main class="grid">
+    <a href="https://marceloneco.github.io/contador-de-historias/" class="card" target="_blank">
+      <div class="card-content">
+        <h2>📖 Contador de Histórias</h2>
+        <p>Gerador e narrador interativo de histórias.</p>
+      </div>
+      <span class="btn-link">Acessar Aplicação &rarr;</span>
+    </a>
+
+    <a href="https://marceloneco.github.io/cifras-violao/" class="card" target="_blank">
+      <div class="card-content">
+        <h2>🎸 Cifras e Acordes</h2>
+        <p>Dicionário e visualizador de cifras/acordes para violão.</p>
+      </div>
+      <span class="btn-link">Acessar Aplicação &rarr;</span>
+    </a>
+
+    <a href="https://marceloneco.github.io/planos-candidatos-2026/" class="card" target="_blank">
+      <div class="card-content">
+        <h2>🏛️ Planos Candidatos 2026</h2>
+        <p>Painel interativo para análise de planos de governo.</p>
+      </div>
+      <span class="btn-link">Acessar Aplicação &rarr;</span>
+    </a>
+
+    <a href="https://marceloneco.github.io/investify-me/" class="card" target="_blank">
+      <div class="card-content">
+        <h2>📈 Investify Me</h2>
+        <p>Simulador e gerenciador financeiro e de investimentos.</p>
+      </div>
+      <span class="btn-link">Acessar Aplicação &rarr;</span>
+    </a>
+  </main>
+
+  <footer>
+    <p>Conecte-se comigo no <a href="https://www.linkedin.com/in/marcelodepaulafreitas1979/" target="_blank">LinkedIn</a></p>
+  </footer>
+
+</body>
+</html>
