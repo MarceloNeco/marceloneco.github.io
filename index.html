@@ -2,69 +2,468 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Marcelo Freitas | Portal de Projetos</title>
+  <meta name="description" content="Portal de projetos de Marcelo Freitas: MoneyTrio, RiseONE, OmniLifeONE, Planos Candidatos 2026, Contador de Histórias e Cifras e Acordes.">
+  <meta name="theme-color" content="#1b1c1f">
+  <meta property="og:title" content="Marcelo Freitas | Portal de Projetos">
+  <meta property="og:description" content="MoneyTrio · RiseONE · OmniLifeONE · Planos 2026 · Contador de Histórias · Cifras e Acordes">
+  <meta property="og:image" content="https://marceloneco.github.io/fundo.jpg">
+  <meta property="og:url" content="https://marceloneco.github.io/">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231b1c1f'/%3E%3Ctext x='32' y='48' font-family='Georgia,serif' font-size='46' font-weight='700' text-anchor='middle' fill='%23c9936b'%3E1%3C/text%3E%3C/svg%3E">
+  <link rel="preload" as="image" href="fundo.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Manrope:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <!--
+    ============================================================
+    PORTAL DE PROJETOS — versão 2.0
+    Arquivos que precisam estar juntos na raiz do repositório:
+      index.html  (este arquivo)
+      fundo.jpg   (a imagem de fundo)
+    Para mudar um link, nome ou descrição de app, procure a lista
+    "APPS" lá embaixo, no fim deste arquivo.
+    ============================================================
+  -->
+
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; }
-    body { background-color: #0d1117; color: #c9d1d9; display: flex; flex-direction: column; align-items: center; min-height: 100vh; padding: 2rem; }
-    header { text-align: center; margin-bottom: 3rem; margin-top: 1rem; }
-    h1 { color: #58a6ff; font-size: 2.2rem; margin-bottom: 0.5rem; }
-    p.subtitle { color: #8b949e; font-size: 1.1rem; }
-    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; width: 100%; max-width: 900px; }
-    .card { background-color: #161b22; border: 1px solid #30363d; border-radius: 10px; padding: 1.5rem; text-decoration: none; color: inherit; transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s; display: flex; flex-direction: column; justify-content: space-between; }
-    .card:hover { transform: translateY(-4px); border-color: #58a6ff; box-shadow: 0 4px 12px rgba(88, 166, 255, 0.15); }
-    .card-content h2 { color: #f0f6fc; font-size: 1.3rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem; }
-    .card-content p { color: #8b949e; font-size: 0.95rem; line-height: 1.4; }
-    .btn-link { margin-top: 1.2rem; display: inline-block; color: #58a6ff; font-weight: 600; font-size: 0.9rem; }
-    footer { margin-top: auto; padding-top: 3rem; color: #8b949e; font-size: 0.9rem; text-align: center; }
-    footer a { color: #58a6ff; text-decoration: none; font-weight: 500; }
+    :root {
+      --bg: #1b1c1f;
+      --card: #222327;
+      --ink: #eee9e3;
+      --muted: #a9a39b;
+      --copper: #d6a57c;
+      --line: rgba(255, 255, 255, 0.10);
+      --top: 68px;
+      --foot: 46px;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; background: var(--bg); color: var(--ink); }
+    body {
+      font-family: 'Manrope', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+      min-height: 100vh; min-height: 100dvh;
+      display: flex; flex-direction: column;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; }
+
+    /* ---------- Topo ---------- */
+    .top {
+      display: flex; align-items: center; justify-content: space-between; gap: 16px;
+      min-height: var(--top);
+      padding: 10px max(16px, env(safe-area-inset-right)) 10px max(16px, env(safe-area-inset-left));
+      width: 100%; max-width: 1760px; margin: 0 auto;
+    }
+    .brand { min-width: 0; }
+    .eyebrow {
+      font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted);
+    }
+    h1 {
+      margin: 2px 0 0; font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 600;
+      font-size: 27px; line-height: 1.05; color: var(--copper); letter-spacing: 0.01em;
+    }
+    .hint { margin: 3px 0 0; font-size: 13px; color: var(--muted); }
+    .hint-stage { display: none; }
+
+    .lang {
+      display: inline-flex; flex-shrink: 0; padding: 3px; gap: 2px;
+      border: 1px solid var(--line); border-radius: 999px; background: rgba(255,255,255,0.03);
+    }
+    .lang button {
+      font: inherit; font-size: 12px; font-weight: 700; letter-spacing: 0.06em;
+      min-width: 44px; min-height: 34px; padding: 0 12px; border: 0; border-radius: 999px;
+      background: transparent; color: var(--muted); cursor: pointer;
+    }
+    .lang button[aria-pressed="true"] { background: var(--copper); color: #1b1c1f; }
+    .lang button:focus-visible { outline: 2px solid var(--copper); outline-offset: 2px; }
+
+    /* ---------- Área principal (modo lista: celular e telas estreitas) ---------- */
+    main {
+      flex: 1; display: flex; align-items: center; justify-content: center;
+      padding: 0 16px;
+    }
+    .stage { position: relative; width: 100%; max-width: 980px; margin: 0 auto; }
+    .art { display: none; }
+
+    .hero {
+      display: block; width: min(64%, 300px); aspect-ratio: 560 / 440; margin: 0 auto 10px;
+      background-image: url('fundo.jpg'); background-repeat: no-repeat;
+      -webkit-mask-image: radial-gradient(ellipse 50% 50% at center, #000 55%, transparent 100%);
+              mask-image: radial-gradient(ellipse 50% 50% at center, #000 55%, transparent 100%);
+    }
+
+    .apps {
+      display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px;
+      padding-bottom: 8px;
+    }
+    @media (min-width: 620px) { .apps { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; } }
+    @media (max-width: 330px) { .apps { grid-template-columns: 1fr; } }
+
+    .app {
+      position: relative; display: flex; flex-direction: column; text-decoration: none;
+      background: var(--card); border: 1px solid var(--line); border-radius: 16px; overflow: hidden;
+      transition: border-color .25s, transform .25s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .app:hover { border-color: rgb(var(--c) / 0.6); }
+    .app:active { transform: scale(0.985); }
+    .app:focus-visible { outline: 2px solid rgb(var(--c)); outline-offset: 2px; }
+
+    .spot { display: none; }
+    .thumb {
+      display: block; aspect-ratio: 16 / 10;
+      background-image: url('fundo.jpg'); background-repeat: no-repeat; background-color: #202124;
+      -webkit-mask-image: radial-gradient(ellipse 62% 62% at center, #000 60%, transparent 100%);
+              mask-image: radial-gradient(ellipse 62% 62% at center, #000 60%, transparent 100%);
+    }
+
+    .chip { display: flex; flex-direction: column; gap: 3px; padding: 4px 12px 13px; font-size: 13px; }
+    .name {
+      display: flex; align-items: flex-start; gap: 7px;
+      font-weight: 700; font-size: 1.12em; color: #f6f1eb; line-height: 1.25;
+    }
+    .name::before {
+      content: ''; flex-shrink: 0; width: 0.5em; height: 0.5em; margin-top: 0.38em; border-radius: 50%;
+      background: rgb(var(--c)); box-shadow: 0 0 0.6em rgb(var(--c) / 0.8);
+    }
+    .nm { flex: 1 1 auto; min-width: 0; }
+    .go { flex-shrink: 0; color: rgb(var(--c)); transition: transform .25s, opacity .25s; }
+    .desc { color: #bdb6ad; font-size: max(11px, 0.92em); line-height: 1.35; }
+    .badge {
+      align-self: flex-start; margin: 2px 0 1px;
+      font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 2px 7px; border-radius: 999px; line-height: 1.4;
+      color: rgb(var(--c)); background: rgb(var(--c) / 0.14); border: 1px solid rgb(var(--c) / 0.5);
+    }
+
+    /* ---------- Rodapé ---------- */
+    footer {
+      min-height: var(--foot); display: flex; align-items: center; justify-content: center; gap: 8px;
+      flex-wrap: wrap; padding: 10px 16px calc(10px + env(safe-area-inset-bottom));
+      color: var(--muted); font-size: 13px; text-align: center;
+    }
+    footer a { color: var(--copper); text-decoration: none; font-weight: 600; }
     footer a:hover { text-decoration: underline; }
+    .ver { opacity: 0.7; font-size: 12px; }
+
+    /* ================================================================
+       MODO PALCO (computador, notebook e tablet deitado):
+       a imagem inteira aparece e cada app fica sobre a sua ilustração
+       ================================================================ */
+    @media (min-width: 900px) and (min-aspect-ratio: 5/4) {
+      .hint-stage { display: block; }
+      .hint-list { display: none; }
+      main { padding: 0 20px; }
+      .stage {
+        max-width: none;
+        width: min(100%, calc((100vh - var(--top) - var(--foot) - 22px) * 1408 / 768));
+        width: min(100%, calc((100dvh - var(--top) - var(--foot) - 22px) * 1408 / 768));
+        aspect-ratio: 1408 / 768;
+        container-type: inline-size;
+        border-radius: 18px; overflow: hidden;
+        box-shadow: 0 24px 70px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(255, 255, 255, 0.05);
+      }
+      .art { display: block; position: absolute; inset: 0; width: 100%; height: 100%; user-select: none; }
+      .hero { display: none; }
+      .thumb { display: none; }
+
+      .apps { position: absolute; inset: 0; display: block; padding: 0; }
+      .app {
+        position: absolute; inset: 0; display: block; pointer-events: none;
+        background: none; border: 0; border-radius: 0; overflow: visible;
+      }
+      .app:hover, .app:active { transform: none; }
+      .app:focus-visible { outline: none; }
+
+      /* área clicável em cima da ilustração */
+      .spot { display: block; position: absolute; pointer-events: auto; cursor: pointer; border-radius: 40%; }
+      .spot::before, .spot::after {
+        content: ''; position: absolute; inset: -6%; border-radius: 50%; pointer-events: none;
+        mix-blend-mode: screen;
+        background: radial-gradient(closest-side, rgb(var(--c) / 0.60), rgb(var(--c) / 0.16) 60%, transparent 100%);
+      }
+      .spot::before { opacity: 0; }
+      .spot::after { opacity: 0; transition: opacity .35s ease; }
+      .app:hover .spot::after, .app:focus-visible .spot::after { opacity: 1; }
+
+      /* etiqueta com nome e descrição */
+      .chip {
+        position: absolute; pointer-events: auto; cursor: pointer;
+        font-size: clamp(11px, 0.92cqw, 15px);
+        width: max-content; max-width: 24em; padding: 0.55em 0.85em 0.65em; gap: 0.2em;
+        border-radius: 0.8em; border: 1px solid rgb(var(--c) / 0.45);
+        background: rgba(20, 20, 23, 0.62);
+        -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+        box-shadow: 0 8px 22px rgba(0, 0, 0, 0.35);
+        transition: transform .25s ease, border-color .25s ease, background .25s ease;
+      }
+      .name { font-size: 1.22em; gap: 0.45em; }
+      .nm { white-space: nowrap; }
+      .desc { max-width: 17.5em; }
+      .badge { font-size: 0.66em; padding: 0.12em 0.55em; margin: 0.1em 0; }
+      .go { opacity: 0; transform: translateX(-0.35em); }
+      .app:hover .chip, .app:focus-visible .chip {
+        transform: translateY(-2px); border-color: rgb(var(--c) / 0.95); background: rgba(20, 20, 23, 0.82);
+      }
+      .app:hover .go, .app:focus-visible .go { opacity: 1; transform: none; }
+      .app:focus-visible .chip { outline: 2px solid rgb(var(--c)); outline-offset: 3px; }
+
+      @media (prefers-reduced-motion: no-preference) {
+        .spot::before { animation: breathe 6s ease-in-out infinite; animation-delay: var(--d, 0s); }
+        .chip { animation: chipIn .7s ease-out backwards; animation-delay: calc(var(--d, 0s) * 0.12 + 0.15s); }
+      }
+    }
+    @keyframes breathe { 0%, 100% { opacity: 0; } 50% { opacity: 0.55; } }
+    @keyframes chipIn { from { opacity: 0; transform: translateY(8px); } }
+
+    noscript ul { list-style: none; padding: 0; margin: 0 auto; max-width: 420px; }
+    noscript li { margin: 10px 0; }
   </style>
 </head>
 <body>
 
-  <header>
-    <h1>👋 Portal de Projetos — Marcelo Freitas</h1>
-    <p class="subtitle">Aplicações web desenvolvidas e hospedadas via GitHub Pages</p>
+  <header class="top">
+    <div class="brand">
+      <div class="eyebrow">Marcelo Freitas</div>
+      <h1 data-i18n="title">Portal de Projetos</h1>
+      <p class="hint hint-stage" data-i18n="hintStage">Clique em uma ilustração para abrir o app</p>
+      <p class="hint hint-list" data-i18n="hintList">Toque em um app para abrir</p>
+    </div>
+    <div class="lang" role="group" aria-label="Idioma / Language">
+      <button type="button" data-lang="pt" aria-pressed="true">PT</button>
+      <button type="button" data-lang="en" aria-pressed="false">EN</button>
+    </div>
   </header>
 
-  <main class="grid">
-    <a href="https://marceloneco.github.io/contador-de-historias/" class="card" target="_blank">
-      <div class="card-content">
-        <h2>📖 Contador de Histórias</h2>
-        <p>Gerador e narrador interativo de histórias.</p>
-      </div>
-      <span class="btn-link">Acessar Aplicação &rarr;</span>
-    </a>
-
-    <a href="https://marceloneco.github.io/cifras-violao/" class="card" target="_blank">
-      <div class="card-content">
-        <h2>🎸 Cifras e Acordes</h2>
-        <p>Dicionário e visualizador de cifras/acordes para violão.</p>
-      </div>
-      <span class="btn-link">Acessar Aplicação &rarr;</span>
-    </a>
-
-    <a href="https://marceloneco.github.io/planos-candidatos-2026/" class="card" target="_blank">
-      <div class="card-content">
-        <h2>🏛️ Planos Candidatos 2026</h2>
-        <p>Painel interativo para análise de planos de governo.</p>
-      </div>
-      <span class="btn-link">Acessar Aplicação &rarr;</span>
-    </a>
-
-    <a href="https://marceloneco.github.io/investify-me/" class="card" target="_blank">
-      <div class="card-content">
-        <h2>📈 Investify Me</h2>
-        <p>Simulador e gerenciador financeiro e de investimentos.</p>
-      </div>
-      <span class="btn-link">Acessar Aplicação &rarr;</span>
-    </a>
+  <main>
+    <div class="stage" id="stage">
+      <img class="art" src="fundo.jpg" width="1408" height="768" alt="" data-i18n-alt="artAlt" draggable="false">
+      <div class="hero" id="hero" aria-hidden="true"></div>
+      <nav class="apps" id="apps" aria-label="Apps"></nav>
+      <noscript>
+        <ul>
+          <li><a href="https://marceloneco.github.io/investify-me/">MoneyTrio</a></li>
+          <li><a href="https://marceloneco.github.io/rise-one/">RiseONE</a></li>
+          <li><a href="https://marceloneco.github.io/omnilife-one/">OmniLifeONE (em breve)</a></li>
+          <li><a href="https://marceloneco.github.io/planos-candidatos-2026/">Planos Candidatos 2026</a></li>
+          <li><a href="https://marceloneco.github.io/contador-de-historias/">Contador de Histórias</a></li>
+          <li><a href="https://marceloneco.github.io/cifras-violao/">Cifras e Acordes</a></li>
+        </ul>
+      </noscript>
+    </div>
   </main>
 
   <footer>
-    <p>Conecte-se comigo no <a href="https://www.linkedin.com/in/marcelodepaulafreitas1979/" target="_blank">LinkedIn</a></p>
+    <span><span data-i18n="connect">Conecte-se comigo no</span>
+      <a href="https://www.linkedin.com/in/marcelodepaulafreitas1979/" target="_blank" rel="noopener">LinkedIn</a></span>
+    <span aria-hidden="true">·</span>
+    <span class="ver">v2.0</span>
   </footer>
 
+  <script>
+    /* =================================================================
+       APPS DO PORTAL
+       - url:    endereço do app (é aqui que se troca o link)
+       - soon:   true mostra o selo "Em breve"; apague a linha quando o app estiver no ar
+       - color:  cor da etiqueta (vermelho verde azul, de 0 a 255)
+       - spots:  áreas da imagem que ficam clicáveis [x, y, largura, altura],
+                 em pixels da imagem original (1408 x 768)
+       - chip:   onde fica a etiqueta com o nome; align 'left' = o ponto é o
+                 canto esquerdo da etiqueta, 'right' = o canto direito
+       - thumb:  recorte da imagem usado como miniatura no celular
+       ================================================================= */
+    const APPS = [
+      {
+        id: 'moneytrio',
+        url: 'https://marceloneco.github.io/investify-me/',
+        color: '214 160 118',
+        name: { pt: 'MoneyTrio', en: 'MoneyTrio' },
+        desc: { pt: 'Finanças pessoais: BudgetONE, InvestifyONE e TaxONE',
+                en: 'Personal finance: BudgetONE, InvestifyONE and TaxONE' },
+        spots: [[40, 15, 445, 235]],
+        chip: { x: 62, y: 262, align: 'left' },
+        thumb: [40, 15, 445, 235]
+      },
+      {
+        id: 'riseone',
+        url: 'https://marceloneco.github.io/rise-one/',
+        color: '190 176 236',
+        name: { pt: 'RiseONE', en: 'RiseONE' },
+        desc: { pt: 'Treino e dieta, com check-in diário e evolução',
+                en: 'Workouts and diet, with daily check-ins and progress' },
+        spots: [[1045, 5, 355, 300]],
+        chip: { x: 1238, y: 286, align: 'right' },
+        thumb: [1045, 5, 355, 300]
+      },
+      {
+        id: 'omnilifeone',
+        url: 'https://marceloneco.github.io/omnilife-one/',
+        soon: true,
+        color: '228 164 96',
+        name: { pt: 'OmniLifeONE', en: 'OmniLifeONE' },
+        desc: { pt: 'A vida organizada em um só lugar',
+                en: 'Your life, organized in one place' },
+        spots: [[1232, 350, 160, 165], [1100, 525, 300, 205]],
+        chip: { x: 1222, y: 402, align: 'right' },
+        thumb: [1105, 525, 295, 200]
+      },
+      {
+        id: 'planos',
+        url: 'https://marceloneco.github.io/planos-candidatos-2026/',
+        color: '164 196 166',
+        name: { pt: 'Planos Candidatos 2026', en: '2026 Candidate Plans' },
+        desc: { pt: 'Painel para comparar os planos de governo',
+                en: 'Dashboard to compare government plans' },
+        spots: [[20, 515, 285, 200]],
+        chip: { x: 48, y: 428, align: 'left' },
+        thumb: [20, 515, 285, 200]
+      },
+      {
+        id: 'historias',
+        url: 'https://marceloneco.github.io/contador-de-historias/',
+        color: '150 192 232',
+        name: { pt: 'Contador de Histórias', en: 'Storyteller' },
+        desc: { pt: 'Cria e narra histórias de dormir',
+                en: 'Creates and narrates bedtime stories' },
+        spots: [[795, 612, 258, 108]],
+        chip: { x: 815, y: 540, align: 'left' },
+        thumb: [795, 612, 255, 110]
+      },
+      {
+        id: 'cifras',
+        url: 'https://marceloneco.github.io/cifras-violao/',
+        color: '234 164 184',
+        name: { pt: 'Cifras e Acordes', en: 'Guitar Chords' },
+        desc: { pt: 'Cifras, troca de tom e dicionário de acordes',
+                en: 'Chord sheets, key changes and a chord dictionary' },
+        spots: [[478, 630, 322, 118]],
+        chip: { x: 440, y: 580, align: 'left' },
+        thumb: [478, 625, 320, 125]
+      }
+    ];
+
+    /* ---------- Textos em português e inglês ---------- */
+    const TEXT = {
+      pt: {
+        docTitle: 'Marcelo Freitas | Portal de Projetos',
+        title: 'Portal de Projetos',
+        hintStage: 'Clique em uma ilustração para abrir o app',
+        hintList: 'Toque em um app para abrir',
+        connect: 'Conecte-se comigo no',
+        soon: 'Em breve',
+        newTab: 'abre em nova aba',
+        artAlt: 'Ilustração com o número 1 ao centro e os apps ao redor'
+      },
+      en: {
+        docTitle: 'Marcelo Freitas | Project Portal',
+        title: 'Project Portal',
+        hintStage: 'Click an illustration to open its app',
+        hintList: 'Tap an app to open it',
+        connect: 'Connect with me on',
+        soon: 'Coming soon',
+        newTab: 'opens in a new tab',
+        artAlt: 'Illustration with the number 1 at the center and the apps around it'
+      }
+    };
+
+    /* ---------- Daqui para baixo é o funcionamento (não precisa mexer) ---------- */
+    const IMG_W = 1408, IMG_H = 768;
+    const pct = (v, total) => (v / total * 100).toFixed(3) + '%';
+
+    // janela da imagem com a proporção pedida, centrada no recorte e sem sair da imagem
+    function windowFor(r, aspect) {
+      let [x, y, w, h] = r, W = w, H = h;
+      if (w / h > aspect) H = w / aspect; else W = h * aspect;
+      let X = x + w / 2 - W / 2, Y = y + h / 2 - H / 2;
+      X = Math.max(0, Math.min(IMG_W - W, X));
+      Y = Math.max(0, Math.min(IMG_H - H, Y));
+      return [X, Y, W, H];
+    }
+    function sprite(el, r, aspect) {
+      const [X, Y, W, H] = windowFor(r, aspect);
+      el.style.backgroundSize = (IMG_W / W * 100).toFixed(3) + '% auto';
+      const px = W >= IMG_W ? 0 : X / (IMG_W - W) * 100;
+      const py = H >= IMG_H ? 0 : Y / (IMG_H - H) * 100;
+      el.style.backgroundPosition = px.toFixed(3) + '% ' + py.toFixed(3) + '%';
+    }
+
+    const list = document.getElementById('apps');
+    const refs = [];
+
+    APPS.forEach((app, i) => {
+      const a = document.createElement('a');
+      a.className = 'app';
+      a.href = app.url;
+      a.target = '_blank';
+      a.rel = 'noopener';
+      a.style.setProperty('--c', app.color);
+      a.style.setProperty('--d', (i * 0.9).toFixed(2) + 's');
+
+      app.spots.forEach(([x, y, w, h]) => {
+        const s = document.createElement('span');
+        s.className = 'spot';
+        s.setAttribute('aria-hidden', 'true');
+        s.style.left = pct(x, IMG_W); s.style.top = pct(y, IMG_H);
+        s.style.width = pct(w, IMG_W); s.style.height = pct(h, IMG_H);
+        a.appendChild(s);
+      });
+
+      const t = document.createElement('span');
+      t.className = 'thumb';
+      t.setAttribute('aria-hidden', 'true');
+      sprite(t, app.thumb, 16 / 10);
+      a.appendChild(t);
+
+      const chip = document.createElement('span');
+      chip.className = 'chip';
+      chip.style.top = pct(app.chip.y, IMG_H);
+      if (app.chip.align === 'right') chip.style.right = pct(IMG_W - app.chip.x, IMG_W);
+      else chip.style.left = pct(app.chip.x, IMG_W);
+      chip.innerHTML =
+        '<span class="name"><span class="nm"></span><span class="go" aria-hidden="true">→</span></span>' +
+        (app.soon ? '<span class="badge"></span>' : '') +
+        '<span class="desc"></span>';
+      a.appendChild(chip);
+
+      list.appendChild(a);
+      refs.push({ app, a, nm: chip.querySelector('.nm'), desc: chip.querySelector('.desc'), badge: chip.querySelector('.badge') });
+    });
+
+    sprite(document.getElementById('hero'), [430, 150, 560, 440], 560 / 440);
+
+    /* ---------- Troca de idioma ---------- */
+    function setLang(lang) {
+      if (!TEXT[lang]) lang = 'pt';
+      const T = TEXT[lang];
+      document.documentElement.lang = lang === 'pt' ? 'pt-BR' : 'en';
+      document.title = T.docTitle;
+      document.querySelectorAll('[data-i18n]').forEach(el => { el.textContent = T[el.dataset.i18n]; });
+      document.querySelectorAll('[data-i18n-alt]').forEach(el => { el.alt = T[el.dataset.i18nAlt]; });
+      refs.forEach(({ app, a, nm, desc, badge }) => {
+        nm.textContent = app.name[lang];
+        desc.textContent = app.desc[lang];
+        if (badge) badge.textContent = T.soon;
+        a.setAttribute('aria-label',
+          app.name[lang] + ' — ' + app.desc[lang] + (app.soon ? ' (' + T.soon + ')' : '') + ' — ' + T.newTab);
+      });
+      document.querySelectorAll('.lang button').forEach(b => {
+        b.setAttribute('aria-pressed', String(b.dataset.lang === lang));
+      });
+      try { localStorage.setItem('portal-lang', lang); } catch (e) {}
+    }
+
+    document.querySelectorAll('.lang button').forEach(b => {
+      b.addEventListener('click', () => setLang(b.dataset.lang));
+    });
+
+    let start = 'pt';
+    try {
+      const saved = localStorage.getItem('portal-lang');
+      if (saved) start = saved;
+      else if (!(navigator.language || 'pt').toLowerCase().startsWith('pt')) start = 'en';
+    } catch (e) {}
+    setLang(start);
+  </script>
 </body>
 </html>
