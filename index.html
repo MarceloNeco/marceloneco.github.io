@@ -18,7 +18,7 @@
 
   <!--
     ============================================================
-    PORTAL DE PROJETOS — versão 2.3
+    PORTAL DE PROJETOS — versão 2.4
     Arquivos que precisam estar juntos na raiz do repositório:
       index.html  (este arquivo)
       fundo.jpg   (a imagem de fundo)
@@ -209,6 +209,25 @@
       .app:hover .go, .app:focus-visible .go { opacity: 1; transform: none; }
       .app:focus-visible .chip { outline: 2px solid rgb(var(--c)); outline-offset: 3px; }
 
+      /* v2.4 — só no computador (mouse): etiqueta compacta só com o nome;
+         ao passar o mouse, ela cresce e mostra o subtítulo */
+      @media (hover: hover) and (pointer: fine) {
+        .app:hover, .app:focus-visible { z-index: 5; }
+        .chip { gap: 0; }
+        .desc {
+          display: block; overflow: hidden;
+          max-width: 0; max-height: 0; opacity: 0; margin-top: 0;
+          transition: max-width .35s ease, max-height .35s ease, margin-top .35s ease, opacity .2s ease;
+        }
+        .go { display: inline-block; overflow: hidden; max-width: 0; margin-left: -0.45em;
+              transition: max-width .3s ease, margin-left .3s ease, opacity .25s, transform .25s; }
+        .app:hover .go, .app:focus-visible .go { max-width: 1.2em; margin-left: 0; }
+        .app:hover .desc, .app:focus-visible .desc {
+          max-width: 17.5em; max-height: 5em; opacity: 1; margin-top: 0.25em;
+          transition: max-width .35s ease, max-height .35s ease, margin-top .35s ease, opacity .25s ease .2s;
+        }
+      }
+
       @media (prefers-reduced-motion: no-preference) {
         .spot::before { animation: breathe 6s ease-in-out infinite; animation-delay: var(--d, 0s); }
         .chip { animation: chipIn .7s ease-out backwards; animation-delay: calc(var(--d, 0s) * 0.12 + 0.15s); }
@@ -258,7 +277,7 @@
     <span><span data-i18n="connect">Conecte-se comigo no</span>
       <a href="https://www.linkedin.com/in/marcelodepaulafreitas1979/" target="_blank" rel="noopener">LinkedIn</a></span>
     <span aria-hidden="true">·</span>
-    <span class="ver">v2.3</span>
+    <span class="ver">v2.4</span>
   </footer>
 
   <script>
