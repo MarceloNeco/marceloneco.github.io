@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>RootifyONE</title>
+  <script>
+    /* O RootifyONE mudou para o Cloudflare Pages. Esta página só existe para
+       quem ainda tem o endereço antigo salvo: leva para o novo mantendo o
+       ?query e o #hash (a rota do RootifyONE fica no #/modulo/sub/id).
+       replace = não deixa esta página no histórico (o Voltar não cai aqui). */
+    location.replace('https://rootify-one.pages.dev/' + location.search + location.hash);
+  </script>
+  <style>
+    body { margin: 0; min-height: 100vh; display: grid; place-content: center; gap: 1rem;
+           padding: 1rem; text-align: center; font: 1.125rem/1.5 system-ui, sans-serif;
+           background: #1b1c1f; color: #f2f2f2; }
+    a { color: #e8b48f; }
+  </style>
+</head>
+<body>
+  <p>Indo para o RootifyONE…</p>
+  <p><a id="link" href="https://rootify-one.pages.dev/">Se não abrir sozinho, toque aqui.</a></p>
+  <script>
+    document.getElementById('link').href = 'https://rootify-one.pages.dev/' + location.search + location.hash;
+  </script>
+</body>
+</html>
