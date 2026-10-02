@@ -146,6 +146,9 @@
     footer a { color: var(--copper); text-decoration: none; font-weight: 600; }
     footer a:hover { text-decoration: underline; }
     .ver { opacity: 0.7; font-size: 12px; }
+    /* No celular o link do RootifyONE fica sozinho na primeira linha, acima do LinkedIn */
+    footer .admin { order: -1; flex-basis: 100%; }
+    .sep-admin { display: none; }
 
     /* ================================================================
        MODO PALCO (computador, notebook e tablet deitado):
@@ -153,6 +156,8 @@
        ================================================================ */
     @media (min-width: 900px) and (min-aspect-ratio: 5/4) {
       .hint-stage { display: block; }
+      footer .admin { order: 0; flex-basis: auto; }
+      .sep-admin { display: inline; }
       .hint-list { display: none; }
       main { padding: 0 20px; }
       .stage {
@@ -276,8 +281,10 @@
   <footer>
     <span><span data-i18n="connect">Conecte-se comigo no</span>
       <a href="https://www.linkedin.com/in/marcelodepaulafreitas1979/" target="_blank" rel="noopener">LinkedIn</a></span>
+    <span class="sep-admin" aria-hidden="true">·</span>
+    <a class="admin" href="https://rootify-one.pages.dev/" target="_blank" rel="noopener">RootifyONE · admin</a>
     <span aria-hidden="true">·</span>
-    <span class="ver">v2.4</span>
+    <span class="ver">v2.5</span>
   </footer>
 
   <script>
