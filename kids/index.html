@@ -28,11 +28,12 @@ h1{font-size:7vh;line-height:1.05;margin:1vh 0 1vh;background:linear-gradient(90
 .card h2{font-size:3.6vh}
 .card p{color:var(--muted);font-size:2.3vh;line-height:1.35}
 .card .tag{margin-top:1vh;font-size:2.2vh;font-weight:700;color:#1a1446;background:var(--c);padding:.8vh 2.2vh;border-radius:999px}
-.card:focus,.card:focus-visible,.card:hover{outline:none;border-color:var(--c);box-shadow:0 0 0 .6vh var(--c),0 0 5vh var(--c);transform:scale(1.04)}
+.card.sel,.card:focus,.card:focus-visible,.card:hover{outline:none;border-color:var(--c);box-shadow:0 0 0 .6vh var(--c),0 0 5vh var(--c);transform:scale(1.04)}
 footer{margin-top:4vh;color:var(--muted);font-size:2.2vh;line-height:1.5}
 footer b{color:var(--ouro)}
 @media (max-width:700px){.grid{grid-template-columns:1fr}.card{min-height:0}h1{font-size:2.2rem}.sub,.marca,.card p,.card .tag,footer{font-size:1rem}.card h2{font-size:1.4rem}.card .ico{font-size:3rem}}
 @media (prefers-reduced-motion:reduce){.card{transition:none}}
+#debug{position:fixed;left:2vh;bottom:2vh;max-width:90vw;background:rgba(0,0,0,.8);color:#c6ff3d;font:2.2vh/1.4 monospace;padding:1.5vh 2vh;border-radius:1.5vh;z-index:9;white-space:pre-wrap;text-align:left}
 </style>
 </head>
 <body>

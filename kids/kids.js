@@ -1,27 +1,36 @@
 /* Navegação pelo controle remoto: setas passam o foco entre os cartões; OK (Enter) abre.
-   Na LG (Magic Remote): enquanto a bolinha do cursor está na tela, as setas movem o cursor e não chegam
-   à página; a bolinha some sozinha uns 5 s depois de parar de mexer o controle (ou ao apertar Voltar).
-   Por isso ouvimos as setas pelo nome (e.key) e pelo código antigo (keyCode 37-40, 13), nos dois eventos
-   (keydown e keyup, sem repetir), e mostramos a dica do cursor quando a LG avisa que ele apareceu. */
+   Navegadores de TV mandam as teclas de jeitos diferentes (nome, código antigo, só keyup, só keypress),
+   por isso ouvimos tudo, na janela e no documento, em captura. Na LG (Magic Remote), enquanto a bolinha
+   do cursor está na tela as setas movem o cursor; a bolinha some uns 5 s depois de parar de mexer o controle.
+   ?debug mostra na tela cada tecla recebida (para diagnosticar numa TV de verdade). */
 (function () {
   var cards = Array.prototype.slice.call(document.querySelectorAll('.card'));
   if (!cards.length) return;
-  var i = Math.max(0, cards.indexOf(document.activeElement)), ultimo = 0;
-  function foco(n) { i = (n + cards.length) % cards.length; try { cards[i].focus({ preventScroll: false }); } catch (e) { cards[i].focus(); } }
+  var i = Math.max(0, cards.indexOf(document.activeElement)), ultimo = 0, ultimaTecla = '';
+  var debug = /[?&]debug\b/.test(location.search), painel = null;
+  if (debug) { painel = document.createElement('pre'); painel.id = 'debug'; painel.textContent = 'DIAGNÓSTICO: aperte as setas e OK no controle…\n'; document.body.appendChild(painel); }
+  function log(e) { if (!painel) return; var ae = document.activeElement; painel.textContent += e.type + '  key=' + JSON.stringify(e.key) + '  code=' + JSON.stringify(e.code) + '  keyCode=' + e.keyCode + '  which=' + e.which + '  foco=' + (ae && (ae.id || ae.tagName)) + '\n'; var linhas = painel.textContent.split('\n'); if (linhas.length > 10) painel.textContent = linhas.slice(-10).join('\n'); }
+  function foco(n) { i = (n + cards.length) % cards.length; try { cards[i].focus({ preventScroll: false }); } catch (e) { cards[i].focus(); } cards.forEach(function (c, k) { c.classList.toggle('sel', k === i); }); }
+  document.body.tabIndex = -1;
   foco(0); setTimeout(function () { if (document.activeElement !== cards[i]) foco(i); }, 300);
+  window.addEventListener('load', function () { foco(i); });
   function tecla(e) {
+    log(e);
     var k = e.key || '', c = e.keyCode || e.which || 0, agora = Date.now();
-    var dir = (k === 'ArrowRight' || k === 'ArrowDown' || c === 39 || c === 40) ? 1 : (k === 'ArrowLeft' || k === 'ArrowUp' || c === 37 || c === 38) ? -1 : 0;
-    var ok = k === 'Enter' || k === ' ' || c === 13 || c === 32;
+    var dir = (k === 'ArrowRight' || k === 'Right' || c === 39) ? 1 : (k === 'ArrowDown' || k === 'Down' || c === 40) ? 1 : (k === 'ArrowLeft' || k === 'Left' || c === 37) ? -1 : (k === 'ArrowUp' || k === 'Up' || c === 38) ? -1 : 0;
+    var ok = k === 'Enter' || k === 'OK' || k === ' ' || c === 13 || c === 32;
     if (!dir && !ok) return;
+    // a mesma tecla pode chegar como keydown, keypress e keyup: trata uma vez só a cada 350 ms
+    var assinatura = (dir || 'ok');
+    if (agora - ultimo < 350 && ultimaTecla === assinatura) { e.preventDefault(); return; }
+    ultimo = agora; ultimaTecla = assinatura;
     e.preventDefault();
-    if (e.type === 'keyup' && agora - ultimo < 400) return;   // o keydown já tratou
-    ultimo = agora;
-    if (dir) foco(i + dir); else cards[i].click();
+    if (dir) foco(i + dir); else { var alvo = cards[i]; if (alvo.href) location.href = alvo.href; else alvo.click(); }
   }
-  document.addEventListener('keydown', tecla); document.addEventListener('keyup', tecla);
+  ['keydown', 'keypress', 'keyup'].forEach(function (t) { window.addEventListener(t, tecla, true); });
   cards.forEach(function (c, n) { c.addEventListener('focus', function () { i = n; }); c.addEventListener('mouseenter', function () { i = n; }); });
   // LG webOS avisa quando a bolinha do cursor aparece ou some
   var dica = document.getElementById('dicaCursor');
-  document.addEventListener('cursorStateChange', function (e) { if (dica) dica.style.display = (e.detail && e.detail.visibility) ? 'block' : 'none'; }, false);
+  document.addEventListener('cursorStateChange', function (e) { if (dica) dica.style.display = (e.detail && e.detail.visibility) ? 'block' : 'none'; if (painel) painel.textContent += 'cursor ' + (e.detail && e.detail.visibility ? 'visível' : 'escondido') + '\n'; }, false);
+  // TVs sem evento de tecla: a roda/clique do Magic Remote ainda funciona; o mouse sobre o cartão já o seleciona
 })();
