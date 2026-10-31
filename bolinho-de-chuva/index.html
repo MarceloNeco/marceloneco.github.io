@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bolinho de Chuva — brincadeiras para a família · SolverONE</title>
+<meta name="description" content="Bolinho de Chuva: as brincadeiras da SolverONE para crianças e família. Histórias, dança e jogos de movimento na TV. / Family games and stories.">
+<meta name="theme-color" content="#0b0a1f">
+<link rel="icon" href="../FeatureTesting/baguncolandia/icone-192.png">
+<!--
+  Bolinho de Chuva — a "estante" das brincadeiras para criança da SolverONE.
+  Para acrescentar uma brincadeira: copie um <a class="card"> abaixo e troque ícone, nome, texto e link.
+  Nenhum script; só HTML e CSS. PT e EN lado a lado.
+-->
+<style>
+:root{--bg:#0b0a1f;--bg2:#1a1446;--card:#221b4d;--text:#f3f0ff;--muted:#b3acd6;--border:#3a2f73;--lima:#c6ff3d;--rosa:#ff4fa3;--ciano:#3ee8ff;--ouro:#ffd166}
+*{box-sizing:border-box;margin:0}
+body{font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;background:radial-gradient(ellipse at 50% 0%,var(--bg2),var(--bg) 70%);color:var(--text);min-height:100vh;padding:1.5rem 1rem 3rem}
+.wrap{max-width:60rem;margin:0 auto}
+.marca{display:flex;align-items:center;gap:.6rem;color:var(--muted);font-size:.95rem}
+.marca span{font-size:2rem;filter:drop-shadow(0 0 10px var(--ouro))}
+h1{font-size:clamp(2rem,6vw,3.4rem);line-height:1.05;margin:.4rem 0 .6rem;background:linear-gradient(90deg,var(--lima),var(--ciano) 40%,var(--rosa));-webkit-background-clip:text;background-clip:text;color:transparent}
+.sub{color:var(--muted);font-size:1.05rem;line-height:1.5;max-width:46rem}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(16rem,1fr));gap:1rem;margin-top:1.8rem}
+.card{display:flex;flex-direction:column;gap:.5rem;background:var(--card);border:1px solid var(--border);border-radius:20px;padding:1.2rem;text-decoration:none;color:inherit;transition:transform .15s ease-out,box-shadow .15s;min-height:44px}
+.card:hover,.card:focus-visible{transform:translateY(-3px);box-shadow:0 0 0 2px var(--c),0 12px 30px rgba(0,0,0,.4);outline:none}
+.card .ico{font-size:2.6rem;line-height:1}
+.card h2{font-size:1.3rem}
+.card p{color:var(--muted);line-height:1.45;font-size:.95rem}
+.card .tag{align-self:flex-start;margin-top:auto;font-size:.8rem;font-weight:700;color:#1a1446;background:var(--c);padding:.3rem .7rem;border-radius:999px}
+.card .en{color:var(--muted);font-size:.85rem;font-style:italic}
+.breve{opacity:.6}
+.breve .tag{background:var(--border);color:var(--text)}
+footer{margin-top:2.5rem;color:var(--muted);font-size:.85rem;line-height:1.5}
+footer a{color:var(--ciano)}
+@media (prefers-reduced-motion:reduce){.card{transition:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="marca"><span>🍩</span> SolverONE apresenta / presents</div>
+  <h1>Bolinho de Chuva</h1>
+  <p class="sub">Brincadeiras para criança e família, sem cadastro e sem anúncio: histórias para dormir, dança e jogos em que se brinca com o corpo todo na frente da TV. <span class="en">Family games and stories, no sign-up, no ads.</span></p>
+
+  <div class="grid">
+    <a class="card" style="--c:#c6ff3d" href="https://solverone.com.br/FeatureTesting/baguncolandia/">
+      <div class="ico">🍉</div>
+      <h2>Bagunçolândia</h2>
+      <p>Frutas, doces e personagens voam na TV e você corta, pega, chuta, pula e abaixa com o corpo. 1 ou 2 pessoas, boneco personalizável, ou no dedo no celular.</p>
+      <p class="en">Slice, catch, kick, jump and duck with your body on the TV. Or by finger on the phone.</p>
+      <span class="tag">▶ Brincar / Play</span>
+    </a>
+    <a class="card" style="--c:#ff4fa3" href="https://solverone.com.br/FeatureTesting/danca-na-sala.html">
+      <div class="ico">💃</div>
+      <h2>Dança na Sala</h2>
+      <p>A TV toca a música do YouTube e mostra quem está dançando, com neon, fogos e placar de energia. O celular filma e comanda.</p>
+      <p class="en">Living Room Dance: YouTube on the TV, phone cameras live, energy score.</p>
+      <span class="tag">▶ Dançar / Dance</span>
+    </a>
+    <a class="card" style="--c:#3ee8ff" href="https://solverone.com.br/contador-de-historias/">
+      <div class="ico">📖</div>
+      <h2>Contador de Histórias</h2>
+      <p>Histórias para dormir: um acervo para ler e ouvir, e a criação de histórias novas com os nomes da sua família.</p>
+      <p class="en">Storyteller: bedtime stories to read, listen to and create.</p>
+      <span class="tag">▶ Ouvir / Listen</span>
+    </a>
+    <a class="card breve" style="--c:#ffd166" href="#" aria-disabled="true" tabindex="-1">
+      <div class="ico">➕</div>
+      <h2>Próxima brincadeira</h2>
+      <p>Mais jogos de movimento, música e imaginação estão a caminho.</p>
+      <p class="en">More games on the way.</p>
+      <span class="tag">🚧 Em breve / Soon</span>
+    </a>
+  </div>
+
+  <footer>
+    <p>Para a TV: digite <b>solverone.com.br/tv/bagunca</b> (Bagunçolândia) ou <b>solverone.com.br/tv</b> (Dança na Sala) no navegador da TV.</p>
+    <p>Nada é gravado; o vídeo fica no Wi-Fi de casa. <a href="https://solverone.com.br/">← Voltar ao SolverONE</a></p>
+  </footer>
+</div>
+</body>
+</html>
