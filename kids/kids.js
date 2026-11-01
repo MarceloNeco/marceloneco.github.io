@@ -6,6 +6,12 @@
 (function () {
   var cards = Array.prototype.slice.call(document.querySelectorAll('.card'));
   if (!cards.length) return;
+  /* tablet ou celular de toque (ex.: tablet Amazon Fire) abrindo esta página não é TV: os jogos abrem no jeito normal,
+     sem o papel de TV (?tv=auto), para ninguém ficar preso na tela do código. TV de verdade (sem toque, ou com nome
+     de TV no navegador, como o Fire TV Stick) continua abrindo como TV. */
+  var toque = ('ontouchstart' in window) || (navigator.maxTouchPoints || 0) > 0;
+  var tv = /AFT|SMART-?TV|SmartTV|Tizen|Web0S|webOS|NetCast|BRAVIA|Android TV|GoogleTV|CrKey|HbbTV|AppleTV|Roku|Viera|Philips|Hisense|VIDAA/i.test(navigator.userAgent || '');
+  if (toque && !tv) cards.forEach(function (c) { if (c.href) c.href = c.href.replace(/([?&])tv=auto(&|$)/, function (m, a, b) { return b ? a : ''; }).replace(/[?&]$/, ''); });
   var i = Math.max(0, cards.indexOf(document.activeElement)), ultimo = 0, ultimaTecla = '';
   var debug = /[?&]debug\b/.test(location.search), painel = null;
   if (debug) { painel = document.createElement('pre'); painel.id = 'debug'; painel.textContent = 'DIAGNÓSTICO: aperte as setas e OK no controle…\n'; document.body.appendChild(painel); }
