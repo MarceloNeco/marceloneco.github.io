@@ -15,6 +15,8 @@
   Bolinho de Chuva — a "estante" das brincadeiras para criança da SolverONE.
   Para acrescentar uma brincadeira: copie um <a class="card"> abaixo e troque ícone, nome, texto e link.
   PT e EN lado a lado.
+  Botão "📲 Instalar" em cada cartão e jogos guardados no aparelho: jogos.js (data-instalar, data-sw,
+  data-so-online em cada cartão).
   Rádio de rock no pé da página: radio.js (10 músicas em musicas/, créditos em CREDITOS.md).
   Botão de instalar: instalar.js, o botão fixo "Instalar o aplicativo" no topo, que com um toque instala
   o Bolinho no aparelho (manifest.webmanifest + sw.js nesta pasta) e, onde o navegador não instala
@@ -52,49 +54,49 @@ body{padding-top:0}
   <p class="sub">Brincadeiras para criança e família, sem cadastro e sem anúncio: histórias para dormir, dança e jogos em que se brinca com o corpo todo na frente da TV. <span class="en">Family games and stories, no sign-up, no ads.</span></p>
 
   <div class="grid">
-    <a class="card" style="--c:#c6ff3d" href="https://solverone.com.br/FeatureTesting/baguncolandia/">
+    <a class="card" style="--c:#c6ff3d" href="https://solverone.com.br/FeatureTesting/baguncolandia/" data-instalar="/FeatureTesting/baguncolandia/" data-sw="/FeatureTesting/baguncolandia/sw.js">
       <div class="ico">🍉</div>
       <h2>Bagunçolândia</h2>
       <p>Frutas, doces e personagens voam na TV e você corta, pega, chuta, pula e abaixa com o corpo. 1 ou 2 pessoas, boneco personalizável, ou no dedo no celular.</p>
       <p class="en">Slice, catch, kick, jump and duck with your body on the TV. Or by finger on the phone.</p>
       <span class="tag">▶ Brincar / Play</span>
     </a>
-    <a class="card" style="--c:#ffd166" href="https://solverone.com.br/FeatureTesting/peluqueria/">
+    <a class="card" style="--c:#ffd166" href="https://solverone.com.br/FeatureTesting/peluqueria/" data-instalar="/FeatureTesting/peluqueria/" data-sw="/FeatureTesting/peluqueria/sw.js">
       <div class="ico">💇</div>
       <h2>Peluqueria</h2>
       <p>O provador maluco da família: uma coroa, um bigode ou uma peruca desce sobre o bicho e você toca na hora certa. Quanto mais perto, mais pontos. UHUL!</p>
       <p class="en">The family's crazy fitting room: tap at the right moment, points for precision.</p>
       <span class="tag">▶ Brincar / Play</span>
     </a>
-    <a class="card" style="--c:#ff4fa3" href="https://solverone.com.br/FeatureTesting/danca-na-sala.html">
+    <a class="card" style="--c:#ff4fa3" href="https://solverone.com.br/FeatureTesting/danca-na-sala.html" data-so-online>
       <div class="ico">💃</div>
       <h2>Dança na Sala</h2>
       <p>A TV toca a música do YouTube e mostra quem está dançando, com neon, fogos e placar de energia. O celular filma e comanda.</p>
       <p class="en">Living Room Dance: YouTube on the TV, phone cameras live, energy score.</p>
       <span class="tag">▶ Dançar / Dance</span>
     </a>
-    <a class="card" style="--c:#ff9f1c" href="https://solverone.com.br/FeatureTesting/vruuum/">
+    <a class="card" style="--c:#ff9f1c" href="https://solverone.com.br/FeatureTesting/vruuum/" data-instalar="/FeatureTesting/vruuum/" data-sw="/FeatureTesting/vruuum/sw.js">
       <div class="ico">🏎️</div>
       <h2>Vruuum!</h2>
       <p>Corrida de carrinho: desvie dos cones e da lama, pegue estrelas, turbo de arco-íris e rampas, passando pela praia, floresta, doces, neve e cidade neon. 1 ou 2 jogadores na mesma tela.</p>
       <p class="en">Kart race: dodge, grab stars, rainbow turbo and ramps across 4 worlds. 1 or 2 players.</p>
       <span class="tag">▶ Correr / Race</span>
     </a>
-    <a class="card" style="--c:#cfa8ff" href="https://solverone.com.br/FeatureTesting/purpurina/">
+    <a class="card" style="--c:#cfa8ff" href="https://solverone.com.br/FeatureTesting/purpurina/" data-instalar="/FeatureTesting/purpurina/" data-sw="/FeatureTesting/purpurina/sw.js">
       <div class="ico">💄</div>
       <h2>Purpurina</h2>
       <p>Maquiagem, roupas, joias e muito brilho: monte a personagem, faça a maquiagem com o pincel, vista roupas e acessórios, cumpra desafios e desfile com confete. Brinque na TV com o celular de controle e música do YouTube ou do Spotify.</p>
       <p class="en">Makeup, outfits and sparkle: style your character, take challenges and walk the runway.</p>
       <span class="tag">▶ Brilhar / Sparkle</span>
     </a>
-    <a class="card" style="--c:#c6ff3d" href="https://solverone.com.br/FeatureTesting/rabiscolandia/">
+    <a class="card" style="--c:#c6ff3d" href="https://solverone.com.br/FeatureTesting/rabiscolandia/" data-instalar="/FeatureTesting/rabiscolandia/" data-sw="/FeatureTesting/rabiscolandia/sw.js">
       <div class="ico">🎨</div>
       <h2>Rabiscolândia</h2>
       <p>Desenhar, livro de colorir e pintar por números, com pincéis que mexem, adesivos animados, paisagens e música. Desenhe com a mão na frente da câmera ou na TV com o celular de controle.</p>
       <p class="en">Draw, color and paint by numbers with live brushes, animated stickers and your hand in the camera.</p>
       <span class="tag">▶ Desenhar / Draw</span>
     </a>
-    <a class="card" style="--c:#3ee8ff" href="https://solverone.com.br/contador-de-historias/">
+    <a class="card" style="--c:#3ee8ff" href="https://solverone.com.br/contador-de-historias/" data-instalar="/contador-de-historias/" data-sw="/contador-de-historias/sw.js">
       <div class="ico">📖</div>
       <h2>Contador de Histórias</h2>
       <p>Histórias para dormir: um acervo para ler e ouvir, e a criação de histórias novas com os nomes da sua família.</p>
@@ -118,5 +120,6 @@ body{padding-top:0}
 
 <script src="instalar.js" data-nome="Bolinho de Chuva" data-icone="icone-192.png"></script>
 <script src="radio.js"></script>
+<script src="jogos.js"></script>
 </body>
 </html>
