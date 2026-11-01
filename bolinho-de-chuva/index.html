@@ -7,10 +7,17 @@
 <meta name="description" content="Bolinho de Chuva: as brincadeiras da SolverONE para crianças e família. Histórias, dança, corrida e jogos de movimento na TV. / Family games and stories.">
 <meta name="theme-color" content="#0b0a1f">
 <link rel="icon" href="../FeatureTesting/baguncolandia/icone-192.png">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icone-180.png">
+<meta name="apple-mobile-web-app-title" content="Bolinho">
+<meta name="mobile-web-app-capable" content="yes">
 <!--
   Bolinho de Chuva — a "estante" das brincadeiras para criança da SolverONE.
   Para acrescentar uma brincadeira: copie um <a class="card"> abaixo e troque ícone, nome, texto e link.
-  Nenhum script; só HTML e CSS. PT e EN lado a lado.
+  PT e EN lado a lado.
+  O único script é o instalar.js: o botão fixo "Instalar o aplicativo" no topo, que com um toque instala
+  o Bolinho no aparelho (manifest.webmanifest + sw.js nesta pasta) e, onde o navegador não instala
+  sozinho, mostra o passo a passo daquele aparelho (iPhone, Android, Fire, Samsung, computador, TV).
 -->
 <style>
 :root{--bg:#0b0a1f;--bg2:#1a1446;--card:#221b4d;--text:#f3f0ff;--muted:#b3acd6;--border:#3a2f73;--lima:#c6ff3d;--rosa:#ff4fa3;--ciano:#3ee8ff;--ouro:#ffd166}
@@ -33,6 +40,7 @@ h1{font-size:clamp(2rem,6vw,3.4rem);line-height:1.05;margin:.4rem 0 .6rem;backgr
 .breve .tag{background:var(--border);color:var(--text)}
 footer{margin-top:2.5rem;color:var(--muted);font-size:.85rem;line-height:1.5}
 footer a{color:var(--ciano)}
+body{padding-top:0}
 @media (prefers-reduced-motion:reduce){.card{transition:none}}
 </style>
 </head>
@@ -106,5 +114,7 @@ footer a{color:var(--ciano)}
     <p>Nada é gravado; o vídeo fica no Wi-Fi de casa. <a href="https://solverone.com.br/">← Voltar ao SolverONE</a></p>
   </footer>
 </div>
+
+<script src="instalar.js" data-nome="Bolinho de Chuva" data-icone="icone-192.png"></script>
 </body>
 </html>
