@@ -13,11 +13,19 @@
     oferecer a instalação, é porque não está instalado, e o botão volta).
   Enquanto a janela de passos está aberta, <body> ganha a classe "bc-modal" (o kids.js deixa as
   setas e o OK do controle para ela).
+
+  Nos jogos (botão "📲 Instalar" de cada cartão do Bolinho), o jogo inclui este arquivo com
+    data-so-com="instalar"  → a barra só aparece quando o endereço tem ?instalar (quem só quer jogar não vê)
+    data-flutuante          → barra por cima da tela do jogo, com ✕ para fechar, sem empurrar nada
+    data-sw="nao"           → não registra sw.js (o próprio jogo já registra o dele)
 */
 (function () {
   var script = document.currentScript;
   var NOME = (script && script.getAttribute('data-nome')) || 'Bolinho de Chuva';
   var ICONE = (script && script.getAttribute('data-icone')) || 'icone-192.png';
+  var SO_COM = script && script.getAttribute('data-so-com');
+  var FLUTUANTE = !!(script && script.hasAttribute('data-flutuante'));
+  if (SO_COM && !new RegExp('[?&]' + SO_COM + '\\b').test(location.search)) return;
   var ua = navigator.userAgent;
   var CHAVE = 'bolinho:instalado:' + location.pathname;
   var pedido = null; // janela de instalar guardada pelo navegador
@@ -25,7 +33,7 @@
   function ler() { try { return localStorage.getItem(CHAVE); } catch (e) { return null; } }
   function gravar(v) { try { if (v) localStorage.setItem(CHAVE, v); else localStorage.removeItem(CHAVE); } catch (e) {} }
 
-  if ('serviceWorker' in navigator) {
+  if ('serviceWorker' in navigator && !(script && script.getAttribute('data-sw') === 'nao')) {
     window.addEventListener('load', function () { navigator.serviceWorker.register('sw.js').catch(function () {}); });
   }
 
@@ -62,7 +70,10 @@
     '.bc-botoes a:focus,.bc-botoes button:focus,.bc-fechar:focus{outline:3px solid #ffd166;outline-offset:2px}' +
     '.bc-passos a.bc-forte{background:#c6ff3d;color:#1a1446}' +
     '.bc-leve{background:transparent;color:#f3f0ff;border:1px solid #3a2f73!important}' +
-    '@media (prefers-reduced-motion:reduce){.bc-passos,.bc-fundo{transition:none}}';
+    '@media (prefers-reduced-motion:reduce){.bc-passos,.bc-fundo{transition:none}}' +
+    '.bc-inst.bc-flut{position:fixed;left:0;right:0;top:0;z-index:2147483000;align-items:center;gap:.5rem;padding:.6rem .5rem;background:rgba(11,10,31,.88)}' +
+    '.bc-flut .bc-x{pointer-events:auto;width:44px;height:44px;border:0;border-radius:50%;background:#3a2f73;color:#f3f0ff;font-size:1.2rem;cursor:pointer;flex:none}' +
+    '.bc-fundo{z-index:2147483001}';
   var estilo = document.createElement('style');
   estilo.textContent = css;
   document.head.appendChild(estilo);
@@ -72,6 +83,14 @@
   barra.innerHTML = '<button type="button" class="bc-btn" aria-haspopup="dialog">' +
     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M12 7v7"/><path d="M9 11l3 3 3-3"/><path d="M10.5 18.5h3"/></svg>' +
     '<span>Instalar o aplicativo <small>· Install app</small></span></button>';
+  if (FLUTUANTE) {
+    barra.className += ' bc-flut';
+    var x = document.createElement('button');
+    x.type = 'button'; x.className = 'bc-x'; x.textContent = '✕';
+    x.setAttribute('aria-label', 'Fechar / Close');
+    x.addEventListener('click', function () { barra.hidden = true; });
+    barra.appendChild(x);
+  }
   document.body.insertBefore(barra, document.body.firstChild);
   var botao = barra.querySelector('button');
   var texto = barra.querySelector('span');
