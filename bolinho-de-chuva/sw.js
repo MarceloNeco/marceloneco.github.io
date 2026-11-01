@@ -1,15 +1,16 @@
 /*
-  Bolinho de Chuva — service worker.
-  Serve para duas coisas: o navegador aceitar instalar o Bolinho como aplicativo e a estante abrir
-  mesmo sem internet. Rede primeiro (sempre a versão mais nova do site); sem resposta em 4 s, usa a
-  cópia guardada. O cache leva o nome do app e só apaga caches do próprio Bolinho, porque todos os
-  apps da SolverONE moram no mesmo endereço e dividem o espaço de cache.
-  A cada mudança no Bolinho, suba a VERSAO.
+  Service worker do Bolinho de Chuva (/bolinho-de-chuva/) e da tela da TV (/kids/): o mesmo arquivo
+  nas duas pastas. Serve para duas coisas: o navegador aceitar instalar a página como aplicativo e ela
+  abrir mesmo sem internet. Rede primeiro (sempre a versão mais nova do site); sem resposta em 4 s, usa
+  a cópia guardada. O cache leva o nome da pasta (dgo-bolinho-de-chuva-vN, dgo-kids-vN) e só apaga
+  caches da própria pasta, porque todos os apps da SolverONE moram no mesmo endereço e dividem o cache.
+  A cada mudança, suba a VERSAO (nas duas cópias).
 */
-var VERSAO = 1;
-var PREFIXO = 'dgo-bolinho-de-chuva-';
+var VERSAO = 2;
+var PASTA = (self.registration.scope.replace(/\/$/, '').split('/').pop() || 'raiz');
+var PREFIXO = 'dgo-' + PASTA + '-';
 var CACHE = PREFIXO + 'v' + VERSAO;
-var BASICO = ['./', 'manifest.webmanifest', 'icone-192.png', 'icone-512.png', 'icone-180.png'];
+var BASICO = ['./', 'manifest.webmanifest'];
 
 self.addEventListener('install', function (e) {
   e.waitUntil(caches.open(CACHE).then(function (c) { return c.addAll(BASICO); }).then(function () { return self.skipWaiting(); }));

@@ -15,9 +15,9 @@
   Bolinho de Chuva — a "estante" das brincadeiras para criança da SolverONE.
   Para acrescentar uma brincadeira: copie um <a class="card"> abaixo e troque ícone, nome, texto e link.
   PT e EN lado a lado.
-  O único script é o do botão fixo "Instalar o aplicativo" no topo: com um toque instala o Bolinho no
-  aparelho (manifest.webmanifest + sw.js nesta pasta) e, onde o navegador não instala sozinho, mostra
-  o passo a passo daquele aparelho (iPhone, Android, navegador da Samsung, computador, TV).
+  O único script é o instalar.js: o botão fixo "Instalar o aplicativo" no topo, que com um toque instala
+  o Bolinho no aparelho (manifest.webmanifest + sw.js nesta pasta) e, onde o navegador não instala
+  sozinho, mostra o passo a passo daquele aparelho (iPhone, Android, Fire, Samsung, computador, TV).
 -->
 <style>
 :root{--bg:#0b0a1f;--bg2:#1a1446;--card:#221b4d;--text:#f3f0ff;--muted:#b3acd6;--border:#3a2f73;--lima:#c6ff3d;--rosa:#ff4fa3;--ciano:#3ee8ff;--ouro:#ffd166}
@@ -40,48 +40,12 @@ h1{font-size:clamp(2rem,6vw,3.4rem);line-height:1.05;margin:.4rem 0 .6rem;backgr
 .breve .tag{background:var(--border);color:var(--text)}
 footer{margin-top:2.5rem;color:var(--muted);font-size:.85rem;line-height:1.5}
 footer a{color:var(--ciano)}
-/* Botão fixo de instalar */
 body{padding-top:0}
-.instalar{position:sticky;top:0;z-index:10;display:flex;justify-content:center;padding:.7rem 0 .8rem;margin-bottom:.4rem;pointer-events:none}
-.instalar .btn-inst{pointer-events:auto}
-.instalar[hidden]{display:none}
-.btn-inst{display:inline-flex;align-items:center;gap:.6rem;min-height:48px;padding:.55rem 1.3rem .55rem .9rem;border:0;border-radius:999px;font:inherit;font-weight:800;font-size:1.05rem;color:#1a1446;background:linear-gradient(90deg,var(--lima),var(--ciano));box-shadow:0 6px 20px rgba(62,232,255,.25);cursor:pointer}
-.btn-inst svg{width:1.6rem;height:1.6rem;flex:none}
-.btn-inst small{font-weight:600;font-size:.8rem;opacity:.75}
-.btn-inst:hover,.btn-inst:focus-visible{outline:3px solid var(--ouro);outline-offset:3px}
-.btn-inst.ok{background:var(--lima)}
-.passos-fundo{position:fixed;inset:0;z-index:20;background:rgba(5,4,20,.7);display:flex;align-items:flex-end;justify-content:center;padding:1rem;opacity:0;transition:opacity .2s ease-out}
-.passos-fundo[hidden]{display:none}
-.passos-fundo.aberto{opacity:1}
-.passos{background:var(--card);border:1px solid var(--border);border-radius:20px;max-width:30rem;width:100%;max-height:90vh;overflow:auto;padding:1.3rem 1.3rem 1.1rem;transform:translateY(24px);transition:transform .2s ease-out}
-.passos-fundo.aberto .passos{transform:none}
-@media (min-width:40rem){.passos-fundo{align-items:center}}
-.passos-topo{display:flex;align-items:center;gap:.7rem;margin-bottom:.8rem}
-.passos-topo img{width:48px;height:48px;border-radius:12px}
-.passos h2{font-size:1.2rem;flex:1}
-.fechar{width:44px;height:44px;border:0;border-radius:50%;background:var(--border);color:var(--text);font-size:1.3rem;cursor:pointer;flex:none}
-.passos ol{padding-left:1.4rem;line-height:1.55;margin:.6rem 0}
-.passos li{margin:.35rem 0}
-.passos p{line-height:1.5;margin:.5rem 0}
-.passos .en{color:var(--muted);font-size:.85rem;font-style:italic}
-.passos .aviso{background:rgba(255,209,102,.12);border-left:3px solid var(--ouro);padding:.5rem .7rem;border-radius:8px}
-.passos a{color:var(--ciano)}
-.passos a.b-forte{color:#1a1446}
-.passos-botoes{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1rem}
-.passos-botoes a,.passos-botoes button{min-height:44px;padding:.5rem 1rem;border-radius:999px;font:inherit;font-weight:700;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;border:0}
-.b-forte{background:var(--lima);color:#1a1446}
-.b-leve{background:transparent;color:var(--text);border:1px solid var(--border)!important}
-@media (prefers-reduced-motion:reduce){.card,.passos,.passos-fundo{transition:none}}
+@media (prefers-reduced-motion:reduce){.card{transition:none}}
 </style>
 </head>
 <body>
 <div class="wrap">
-  <div class="instalar" id="instalar">
-    <button type="button" class="btn-inst" id="btnInstalar" aria-haspopup="dialog">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M12 7v7"/><path d="M9 11l3 3 3-3"/><path d="M10.5 18.5h3"/></svg>
-      <span id="txtInstalar">Instalar o aplicativo <small>· Install app</small></span>
-    </button>
-  </div>
   <div class="marca"><span>🍩</span> SolverONE apresenta / presents</div>
   <h1>Bolinho de Chuva</h1>
   <p class="sub">Brincadeiras para criança e família, sem cadastro e sem anúncio: histórias para dormir, dança e jogos em que se brinca com o corpo todo na frente da TV. <span class="en">Family games and stories, no sign-up, no ads.</span></p>
@@ -151,166 +115,6 @@ body{padding-top:0}
   </footer>
 </div>
 
-<div class="passos-fundo" id="passosFundo" hidden>
-  <div class="passos" role="dialog" aria-modal="true" aria-labelledby="passosTitulo">
-    <div class="passos-topo">
-      <img src="icone-192.png" alt="">
-      <h2 id="passosTitulo">Instalar o Bolinho de Chuva</h2>
-      <button type="button" class="fechar" id="passosFechar" aria-label="Fechar / Close">✕</button>
-    </div>
-    <div id="passosCorpo"></div>
-    <div class="passos-botoes">
-      <button type="button" class="b-leve" id="jaInstalei">✓ Já instalei / Done</button>
-    </div>
-  </div>
-</div>
-
-<script>
-/*
-  Botão "Instalar o aplicativo". Um botão só, para qualquer aparelho:
-  - Chrome, Edge, Samsung no Android e Chrome/Edge no computador entregam a janela de instalar
-    (beforeinstallprompt): o toque instala na hora.
-  - Onde o navegador não tem essa janela (iPhone, Mac, Firefox, TV, navegador dentro de outro app),
-    o toque abre o passo a passo daquele aparelho, detectado sem perguntar.
-  - Já aberto como aplicativo, o botão some. "Já instalei" também esconde (se o navegador voltar a
-    oferecer a instalação, é porque não está instalado, e o botão volta).
-*/
-(function () {
-  var ua = navigator.userAgent;
-  var barra = document.getElementById('instalar');
-  var botao = document.getElementById('btnInstalar');
-  var texto = document.getElementById('txtInstalar');
-  var fundo = document.getElementById('passosFundo');
-  var corpo = document.getElementById('passosCorpo');
-  var CHAVE = 'bolinho:instalado';
-  var pedido = null; // janela de instalar guardada pelo navegador
-
-  function ler() { try { return localStorage.getItem(CHAVE); } catch (e) { return null; } }
-  function gravar(v) { try { if (v) localStorage.setItem(CHAVE, v); else localStorage.removeItem(CHAVE); } catch (e) {} }
-
-  var comoApp = (window.matchMedia && (matchMedia('(display-mode: standalone)').matches || matchMedia('(display-mode: fullscreen)').matches || matchMedia('(display-mode: minimal-ui)').matches)) || navigator.standalone === true;
-  if (comoApp) { barra.hidden = true; return; }
-  if (ler()) barra.hidden = true;
-
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', function () { navigator.serviceWorker.register('sw.js').catch(function () {}); });
-  }
-
-  window.addEventListener('beforeinstallprompt', function (e) {
-    e.preventDefault();
-    pedido = e;
-    gravar(null);       // o navegador diz que ainda não está instalado
-    barra.hidden = false;
-  });
-  window.addEventListener('appinstalled', function () {
-    pedido = null;
-    gravar('1');
-    pronto();
-  });
-
-  function pronto() {
-    botao.classList.add('ok');
-    texto.innerHTML = '✓ Instalado! Procure o ícone Bolinho <small>· Installed!</small>';
-    setTimeout(function () { barra.hidden = true; }, 6000);
-  }
-
-  // Qual aparelho e navegador é (para escrever o passo a passo certo).
-  var tv = /SmartTV|SMART-TV|Web0S|WebOS|Tizen|NetCast|HbbTV|BRAVIA|VIDAA|Roku|AFT[A-Z]|Android TV|GoogleTV|CrKey/i.test(ua);
-  var ios = /iPhone|iPad|iPod/.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1);
-  var android = /Android/.test(ua);
-  var samsung = /SamsungBrowser/.test(ua) && !tv;
-  var dentroDeApp = /FBAN|FBAV|Instagram|Line\/|WhatsApp|; wv\)|GSA\//.test(ua);
-  var firefox = /Firefox|FxiOS/.test(ua);
-  var edge = /Edg\//.test(ua);
-  var macSafari = /Macintosh/.test(ua) && /Safari/.test(ua) && !/Chrome|Chromium|Edg|Firefox/.test(ua) && !ios;
-  var endereco = location.href.split('#')[0];
-
-  function linkChrome() {
-    return 'intent://' + location.host + location.pathname + '#Intent;scheme=https;package=com.android.chrome;S.browser_fallback_url=' + encodeURIComponent(endereco) + ';end';
-  }
-
-  function passos() {
-    if (tv) return '<p>Na TV não existe "instalar" pelo navegador, mas dá para deixar o Bolinho a um clique:</p>' +
-      '<ol><li>Com o Bolinho aberto, aperte o botão de <b>menu</b> do navegador da TV (às vezes é a engrenagem ou os <b>três pontinhos</b>).</li>' +
-      '<li>Escolha <b>Adicionar aos favoritos</b> (em algumas TVs aparece <b>Fixar na tela inicial</b> ou <b>Adicionar à página inicial</b>: use esse, se tiver).</li>' +
-      '<li>Da próxima vez, abra o navegador e escolha <b>Bolinho de Chuva</b> nos favoritos.</li></ol>' +
-      '<p class="en">On the TV: open the browser menu and choose "Add to favorites" (or "Pin to home", if your TV has it).</p>' +
-      '<p class="aviso">TV LG: dá para ter o ícone na barra de apps, igual ao Netflix. Peça para alguém seguir no computador o <a href="https://github.com/MarceloNeco/FeatureTesting/blob/main/tv-lg-kids/LEIA-ME.md" target="_blank" rel="noopener">passo a passo da TV LG</a>.</p>';
-    if (ios) return '<ol><li>Abra esta página no <b>Safari</b> (se estiver dentro de outro app, toque em <b>Abrir no Safari</b>).</li>' +
-      '<li>Toque em <b>Compartilhar</b> (o quadrado com a seta para cima ⬆, embaixo ou no topo da tela).</li>' +
-      '<li>Role a lista e toque em <b>Adicionar à Tela de Início</b>.</li>' +
-      '<li>Toque em <b>Adicionar</b>. O ícone do Bolinho aparece junto dos seus apps.</li></ol>' +
-      '<p class="en">iPhone/iPad: Safari → Share ⬆ → Add to Home Screen → Add.</p>';
-    if (samsung) return '<p>No navegador da Samsung, instalar pode mostrar um alerta do Google ("app de risco"). O Bolinho não tem risco nenhum: o alerta é do jeito que esse navegador instala. Pelo <b>Chrome</b> instala sem alerta:</p>' +
-      '<ol><li>Toque em <b>Abrir no Chrome</b> (botão abaixo).</li>' +
-      '<li>No Chrome, toque de novo em <b>Instalar o aplicativo</b>, no topo da página.</li>' +
-      '<li>Toque em <b>Instalar</b>. Pronto: o ícone aparece na tela do celular.</li></ol>' +
-      '<p class="aviso">Já apareceu o alerta? Toque em <b>OK</b> e siga os passos acima.</p>' +
-      '<p class="en">Samsung Internet may show a Google "risky app" alert. Install from Chrome instead.</p>' +
-      '<div class="passos-botoes"><a class="b-forte" href="' + linkChrome() + '">Abrir no Chrome / Open in Chrome</a></div>';
-    if (android && dentroDeApp) return '<p>Você abriu o Bolinho dentro de outro app (WhatsApp, Instagram…). Para instalar, abra no Chrome:</p>' +
-      '<ol><li>Toque em <b>Abrir no Chrome</b> (botão abaixo) ou nos <b>três pontinhos ⋮</b> e em <b>Abrir no navegador</b>.</li>' +
-      '<li>No Chrome, toque em <b>Instalar o aplicativo</b>, no topo da página.</li></ol>' +
-      '<p class="en">Opened inside another app: open in Chrome, then tap "Install app".</p>' +
-      '<div class="passos-botoes"><a class="b-forte" href="' + linkChrome() + '">Abrir no Chrome / Open in Chrome</a></div>';
-    if (android) return '<ol><li>Toque nos <b>três pontinhos ⋮</b> do navegador (no canto de cima ou de baixo).</li>' +
-      '<li>Toque em <b>Instalar app</b> ou <b>Adicionar à tela inicial</b>.</li>' +
-      '<li>Confirme em <b>Instalar</b>. O ícone do Bolinho aparece junto dos seus apps.</li></ol>' +
-      '<p class="en">Android: browser menu ⋮ → Install app (or Add to Home screen).</p>' +
-      '<p class="aviso">Se essa opção não aparecer, talvez o Bolinho já esteja instalado: procure o ícone <b>Bolinho</b> nos seus apps.</p>';
-    if (macSafari) return '<ol><li>No menu do topo da tela, clique em <b>Arquivo</b>.</li>' +
-      '<li>Clique em <b>Adicionar ao Dock</b> e em <b>Adicionar</b>.</li></ol>' +
-      '<p class="en">Mac Safari: File → Add to Dock.</p>';
-    if (firefox) return '<p>O Firefox do computador não instala sites como aplicativo. Abra esta mesma página no <b>Chrome</b> ou no <b>Edge</b> e toque em <b>Instalar o aplicativo</b>.</p>' +
-      '<p>Ou, para ter só um atalho: aperte <b>Ctrl + D</b> (no Mac, <b>⌘ + D</b>) para guardar nos favoritos.</p>' +
-      '<p class="en">Firefox desktop cannot install sites: use Chrome or Edge, or press Ctrl+D to bookmark.</p>';
-    if (edge) return '<ol><li>Clique nos <b>três pontinhos ⋯</b> no canto de cima do Edge.</li>' +
-      '<li>Clique em <b>Aplicativos</b> → <b>Instalar este site como um aplicativo</b>.</li>' +
-      '<li>Clique em <b>Instalar</b>. O Bolinho abre na janela dele e ganha ícone no menu Iniciar.</li></ol>' +
-      '<p class="en">Edge: ⋯ → Apps → Install this site as an app.</p>' +
-      '<p class="aviso">Se a opção não aparecer, o Bolinho já deve estar instalado: procure <b>Bolinho de Chuva</b> no menu Iniciar.</p>';
-    return '<ol><li>Clique no ícone de <b>instalar</b> no fim da barra de endereço (um monitor com uma seta ⤓), se aparecer.</li>' +
-      '<li>Ou clique nos <b>três pontinhos ⋮</b> → <b>Transmitir, salvar e compartilhar</b> → <b>Instalar página como app</b>.</li>' +
-      '<li>Clique em <b>Instalar</b>. O Bolinho abre na janela dele, com ícone na área de trabalho.</li></ol>' +
-      '<p class="en">Chrome: install icon in the address bar, or ⋮ → Cast, save and share → Install page as app.</p>' +
-      '<p class="aviso">Se nada disso aparecer, o Bolinho já deve estar instalado: procure <b>Bolinho de Chuva</b> nos seus programas.</p>';
-  }
-
-  // Janela de passos: abre com movimento curto, fecha no ✕, no Esc, tocando fora e no Voltar do celular.
-  var naHistoria = false;
-  function abrir() {
-    corpo.innerHTML = passos();
-    fundo.hidden = false;
-    requestAnimationFrame(function () { fundo.classList.add('aberto'); });
-    document.getElementById('passosFechar').focus();
-    try { history.pushState({ bolinhoPassos: 1 }, ''); naHistoria = true; } catch (e) {}
-  }
-  function fechar(pelaHistoria) {
-    if (fundo.hidden) return;
-    fundo.classList.remove('aberto');
-    fundo.hidden = true;
-    botao.focus();
-    if (naHistoria && !pelaHistoria) { naHistoria = false; history.back(); }
-    naHistoria = false;
-  }
-  window.addEventListener('popstate', function () { if (!fundo.hidden) fechar(true); });
-  document.getElementById('passosFechar').addEventListener('click', function () { fechar(); });
-  fundo.addEventListener('click', function (e) { if (e.target === fundo) fechar(); });
-  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') fechar(); });
-  document.getElementById('jaInstalei').addEventListener('click', function () {
-    gravar('1'); fechar(); barra.hidden = true;
-  });
-
-  botao.addEventListener('click', function () {
-    if (!pedido) { abrir(); return; }
-    var p = pedido;
-    pedido = null; // a janela do navegador só pode ser usada uma vez
-    p.prompt();
-    p.userChoice.then(function (r) {
-      if (r && r.outcome === 'accepted') { gravar('1'); pronto(); }
-    }).catch(function () {});
-  });
-})();
-</script>
+<script src="instalar.js" data-nome="Bolinho de Chuva" data-icone="icone-192.png"></script>
 </body>
 </html>

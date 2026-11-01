@@ -6,18 +6,25 @@
 <meta name="robots" content="noindex">
 <title>Kids na TV — Bolinho de Chuva · SolverONE</title>
 <link rel="icon" href="../FeatureTesting/baguncolandia/icone-192.png">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="../bolinho-de-chuva/icone-180.png">
+<meta name="apple-mobile-web-app-title" content="Bolinho Kids">
+<meta name="mobile-web-app-capable" content="yes">
 <!--
   solverone.com.br/kids — atalho curto para digitar na TV.
   Lista só o que funciona na TV, com botões grandes para o controle remoto: as setas passam de um
   botão para outro, OK (Enter) abre. Os jogos abrem já no papel de TV (?tv=auto).
   Para acrescentar um item: copie um <a class="card"> e troque ícone, nome, texto e link.
-  Nenhum script além da navegação pelas setas; só HTML e CSS.
+  Scripts: a navegação pelas setas (kids.js) e o botão fixo "Instalar o aplicativo" (instalar.js, o mesmo
+  da estante do Bolinho; manifest.webmanifest e sw.js desta pasta).
 -->
 <style>
 :root{--bg:#0b0a1f;--bg2:#1a1446;--card:#221b4d;--text:#f3f0ff;--muted:#b3acd6;--border:#3a2f73;--lima:#c6ff3d;--rosa:#ff4fa3;--ciano:#3ee8ff;--ouro:#ffd166}
 *{box-sizing:border-box;margin:0}
 html,body{height:100%}
-body{font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;background:radial-gradient(ellipse at 50% 0%,var(--bg2),var(--bg) 70%);color:var(--text);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:4vh 4vw;text-align:center}
+body{font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;background:radial-gradient(ellipse at 50% 0%,var(--bg2),var(--bg) 70%);color:var(--text);min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:4vh 4vw;text-align:center}
+.marca{margin-top:auto}
+footer{margin-bottom:auto}
 .marca{color:var(--muted);font-size:2.6vh}
 .marca span{font-size:5vh;filter:drop-shadow(0 0 10px var(--ouro))}
 h1{font-size:7vh;line-height:1.05;margin:1vh 0 1vh;background:linear-gradient(90deg,var(--lima),var(--ciano) 40%,var(--rosa));-webkit-background-clip:text;background-clip:text;color:transparent}
@@ -42,7 +49,7 @@ footer b{color:var(--ouro)}
 <p class="sub">Use as setas do controle para escolher e OK para abrir. / Use the remote’s arrows and OK.</p>
 <p class="sub" id="dicaCursor" style="display:none;color:var(--ouro)">Com a bolinha do cursor na tela, as setas movem a bolinha. Pare de mexer o controle uns segundos (a bolinha some) e aí as setas escolhem. Ou aponte e aperte OK em cima do jogo.</p>
 <div class="grid">
-  <a class="card" style="--c:#c6ff3d" href="https://solverone.com.br/FeatureTesting/baguncolandia/?tv=auto" autofocus tabindex="0">
+  <a class="card" style="--c:#c6ff3d" href="https://solverone.com.br/FeatureTesting/baguncolandia/?tv=auto" tabindex="0">
     <div class="ico">🍉</div>
     <h2>Bagunçolândia</h2>
     <p>Corte, pegue, chute, pule e abaixe com o corpo. A TV mostra o código; o celular filma.</p>
@@ -89,5 +96,6 @@ footer b{color:var(--ouro)}
   <p>No celular, abra o mesmo jogo em <b>solverone.com.br/bolinho-de-chuva</b> e digite o código que a TV mostra.</p>
 </footer>
 <script src="kids.js"></script>
+<script src="../bolinho-de-chuva/instalar.js" data-nome="Bolinho Kids" data-icone="../bolinho-de-chuva/icone-192.png"></script>
 </body>
 </html>
