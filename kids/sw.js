@@ -6,7 +6,7 @@
   caches da própria pasta, porque todos os apps da SolverONE moram no mesmo endereço e dividem o cache.
   A cada mudança, suba a VERSAO (nas duas cópias).
 */
-var VERSAO = 2;
+var VERSAO = 3;
 var PASTA = (self.registration.scope.replace(/\/$/, '').split('/').pop() || 'raiz');
 var PREFIXO = 'dgo-' + PASTA + '-';
 var CACHE = PREFIXO + 'v' + VERSAO;
@@ -29,6 +29,8 @@ self.addEventListener('fetch', function (e) {
   var escopo = new URL(self.registration.scope);
   // Só cuida do que é do próprio Bolinho; jogos e outros apps seguem com o service worker deles.
   if (req.method !== 'GET' || url.origin !== escopo.origin || url.pathname.indexOf(escopo.pathname) !== 0) return;
+  // Música não passa por aqui: arquivo grande, tocado em pedaços pelo navegador; vem sempre da internet.
+  if (/\.mp3$/i.test(url.pathname)) return;
   e.respondWith(new Promise(function (resolve) {
     var respondeu = false;
     function daCopia() {

@@ -38,6 +38,7 @@
     '.bc-btn{pointer-events:auto;display:inline-flex;align-items:center;gap:.6rem;min-height:48px;padding:.55rem 1.3rem .55rem .9rem;border:0;border-radius:999px;font:inherit;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;font-weight:800;font-size:1.05rem;color:#1a1446;background:#c6ff3d;background:linear-gradient(90deg,#c6ff3d,#3ee8ff);box-shadow:0 6px 20px rgba(62,232,255,.25);cursor:pointer}' +
     '.bc-btn svg{width:1.6rem;height:1.6rem;flex:none}' +
     '.bc-btn small{font-weight:600;font-size:.8rem;opacity:.75}' +
+    '@media (max-width:22rem){.bc-btn small{display:none}}' +
     '.bc-btn:hover,.bc-btn:focus,.bc-btn:focus-visible{outline:3px solid #ffd166;outline-offset:3px}' +
     '.bc-btn.ok{background:#c6ff3d}' +
     '.bc-fundo{position:fixed;top:0;left:0;right:0;bottom:0;z-index:20;background:rgba(5,4,20,.7);display:flex;align-items:flex-end;justify-content:center;padding:1rem;opacity:0;transition:opacity .2s ease-out;text-align:left}' +
