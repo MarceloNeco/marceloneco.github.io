@@ -205,9 +205,15 @@
       }
       .name { font-size: 1.22em; gap: 0.45em; }
       .nm { white-space: nowrap; }
-      .desc { max-width: 17.5em; }
+      /* No palco, a etiqueta mostra SÓ O NOME (compacta), para as etiquetas não se encavalarem no
+         tablet, que não tem mouse. A descrição aparece só no computador, ao passar o mouse (abaixo). */
+      .desc {
+        display: block; overflow: hidden;
+        max-width: 0; max-height: 0; opacity: 0; margin-top: 0;
+        transition: max-width .35s ease, max-height .35s ease, margin-top .35s ease, opacity .2s ease;
+      }
       .badge { font-size: 0.66em; padding: 0.12em 0.55em; margin: 0.1em 0; }
-      .go { opacity: 0; transform: translateX(-0.35em); }
+      .go { opacity: 0; display: inline-block; overflow: hidden; max-width: 0; margin-left: -0.45em; transform: translateX(-0.35em); }
       .app:hover .chip, .app:focus-visible .chip {
         transform: translateY(-2px); border-color: rgb(var(--c) / 0.95); background: rgba(20, 20, 23, 0.82);
       }
@@ -219,13 +225,7 @@
       @media (hover: hover) and (pointer: fine) {
         .app:hover, .app:focus-visible { z-index: 5; }
         .chip { gap: 0; }
-        .desc {
-          display: block; overflow: hidden;
-          max-width: 0; max-height: 0; opacity: 0; margin-top: 0;
-          transition: max-width .35s ease, max-height .35s ease, margin-top .35s ease, opacity .2s ease;
-        }
-        .go { display: inline-block; overflow: hidden; max-width: 0; margin-left: -0.45em;
-              transition: max-width .3s ease, margin-left .3s ease, opacity .25s, transform .25s; }
+        .go { transition: max-width .3s ease, margin-left .3s ease, opacity .25s, transform .25s; }
         .app:hover .go, .app:focus-visible .go { max-width: 1.2em; margin-left: 0; }
         .app:hover .desc, .app:focus-visible .desc {
           max-width: 17.5em; max-height: 5em; opacity: 1; margin-top: 0.25em;
