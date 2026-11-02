@@ -18,6 +18,9 @@
     data-so-com="instalar"  → a barra só aparece quando o endereço tem ?instalar (quem só quer jogar não vê)
     data-flutuante          → barra por cima da tela do jogo, com ✕ para fechar, sem empurrar nada
     data-sw="nao"           → não registra sw.js (o próprio jogo já registra o dele)
+  "Instalar um por um" (painel do Bolinho, jogos.js): o jogo abre com ?instalar=1&fila=1 e a barra ganha o botão
+  "Próximo ›" (ou "Pular ›" antes de instalar), que leva ao próximo jogo da fila (localStorage "bolinho:fila") e,
+  no fim, de volta ao Bolinho com ?fila=fim.
 */
 (function () {
   var script = document.currentScript;
@@ -25,6 +28,7 @@
   var ICONE = (script && script.getAttribute('data-icone')) || 'icone-192.png';
   var SO_COM = script && script.getAttribute('data-so-com');
   var FLUTUANTE = !!(script && script.hasAttribute('data-flutuante'));
+  var FILA = /[?&]fila\b/.test(location.search);
   if (SO_COM && !new RegExp('[?&]' + SO_COM + '\\b').test(location.search)) return;
   var ua = navigator.userAgent;
   var CHAVE = 'bolinho:instalado:' + location.pathname;
@@ -73,7 +77,10 @@
     '@media (prefers-reduced-motion:reduce){.bc-passos,.bc-fundo{transition:none}}' +
     '.bc-inst.bc-flut{position:fixed;left:0;right:0;top:0;z-index:2147483000;align-items:center;gap:.5rem;padding:.6rem .5rem;background:rgba(11,10,31,.88)}' +
     '.bc-flut .bc-x{pointer-events:auto;width:44px;height:44px;border:0;border-radius:50%;background:#3a2f73;color:#f3f0ff;font-size:1.2rem;cursor:pointer;flex:none}' +
-    '.bc-fundo{z-index:2147483001}';
+    '.bc-fundo{z-index:2147483001}' +
+    '.bc-prox{pointer-events:auto;min-height:48px;padding:.5rem 1rem;border-radius:999px;border:1px solid #3a2f73;background:#221b4d;color:#f3f0ff;font:inherit;font-weight:700;cursor:pointer}' +
+    '.bc-prox.ok{border:0;background:#c6ff3d;color:#1a1446}' +
+    '.bc-inst{gap:.5rem;flex-wrap:wrap}';
   var estilo = document.createElement('style');
   estilo.textContent = css;
   document.head.appendChild(estilo);
@@ -91,10 +98,30 @@
     x.addEventListener('click', function () { barra.hidden = true; });
     barra.appendChild(x);
   }
+  // "Instalar um por um": botão para seguir para o próximo jogo da fila
+  var bProx = null;
+  function lerFila() { try { return JSON.parse(localStorage.getItem('bolinho:fila') || '[]') || []; } catch (e) { return []; } }
+  function proximo() {
+    var fila = lerFila(), seg = fila.shift();
+    try { localStorage.setItem('bolinho:fila', JSON.stringify(fila)); } catch (e) {}
+    location.href = seg ? seg.url + '?instalar=1&fila=1' : '/bolinho-de-chuva/?fila=fim';
+  }
+  function rotuloProx(feito) {
+    var seg = lerFila()[0];
+    bProx.textContent = seg ? (feito ? 'Próximo: ' + seg.nome + ' ›' : 'Pular ›') : (feito ? 'Terminar ›' : 'Pular e terminar ›');
+    bProx.className = feito ? 'bc-btn bc-prox ok' : 'bc-prox';
+  }
+  if (FILA) {
+    bProx = document.createElement('button');
+    bProx.type = 'button';
+    bProx.addEventListener('click', proximo);
+    barra.insertBefore(bProx, barra.children[1] || null);
+    rotuloProx(false);
+  }
   document.body.insertBefore(barra, document.body.firstChild);
   var botao = barra.querySelector('button');
   var texto = barra.querySelector('span');
-  if (ler()) barra.hidden = true;
+  if (ler() && !FILA) barra.hidden = true;
 
   var fundo = document.createElement('div');
   fundo.className = 'bc-fundo';
@@ -118,6 +145,7 @@
   function pronto() {
     botao.className = 'bc-btn ok';
     texto.innerHTML = '✓ Instalado! Procure o ícone ' + NOME + ' <small>· Installed!</small>';
+    if (FILA) { barra.hidden = false; rotuloProx(true); return; }   // na fila, a barra fica para seguir ao próximo
     setTimeout(function () { barra.hidden = true; }, 6000);
   }
 
@@ -214,7 +242,11 @@
   fundo.querySelector('.bc-fechar').addEventListener('click', function () { fechar(); });
   fundo.addEventListener('click', function (e) { if (e.target === fundo) fechar(); });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape' || e.keyCode === 27) fechar(); });
-  fundo.querySelector('.bc-ja').addEventListener('click', function () { gravar('1'); barra.hidden = true; fechar(); });
+  fundo.querySelector('.bc-ja').addEventListener('click', function () {
+    gravar('1'); fechar();
+    if (FILA) return pronto();
+    barra.hidden = true;
+  });
 
   botao.addEventListener('click', function () {
     if (!pedido) { abrir(); return; }

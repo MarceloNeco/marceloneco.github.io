@@ -14,7 +14,7 @@
   solverone.com.br/kids — atalho curto para digitar na TV.
   Lista só o que funciona na TV, com botões grandes para o controle remoto: as setas passam de um
   botão para outro, OK (Enter) abre. Os jogos abrem já no papel de TV (?tv=auto); em tablet ou celular de toque (ex.: tablet Fire), o kids.js tira o ?tv=auto e o jogo abre no jeito normal.
-  Para acrescentar um item: copie um <a class="card"> e troque ícone, nome, texto e link.
+  Os cartões vêm da lista única ../bolinho-de-chuva/catalogo.js (jogo com "tv" aparece aqui).
   Scripts: a navegação pelas setas (kids.js) e o botão fixo "Instalar o aplicativo" (instalar.js, o mesmo
   da estante do Bolinho; manifest.webmanifest e sw.js desta pasta).
 -->
@@ -48,50 +48,8 @@ footer b{color:var(--ouro)}
 <h1>Kids na TV</h1>
 <p class="sub">Use as setas do controle para escolher e OK para abrir. / Use the remote’s arrows and OK.</p>
 <p class="sub" id="dicaCursor" style="display:none;color:var(--ouro)">Com a bolinha do cursor na tela, as setas movem a bolinha. Pare de mexer o controle uns segundos (a bolinha some) e aí as setas escolhem. Ou aponte e aperte OK em cima do jogo.</p>
-<div class="grid">
-  <a class="card" style="--c:#c6ff3d" href="https://solverone.com.br/FeatureTesting/baguncolandia/?tv=auto" tabindex="0">
-    <div class="ico">🍉</div>
-    <h2>Bagunçolândia</h2>
-    <p>Corte, pegue, chute, pule e abaixe com o corpo. A TV mostra o código; o celular filma.</p>
-    <span class="tag">▶ Abrir na TV</span>
-  </a>
-  <a class="card" style="--c:#ffd166" href="https://solverone.com.br/FeatureTesting/peluqueria/?tv=auto" tabindex="0">
-    <div class="ico">💇</div>
-    <h2>Peluqueria</h2>
-    <p>Um chapéu, um bigode ou uma peruca desce sobre o bicho: aperte OK na hora certa.</p>
-    <span class="tag">▶ Abrir na TV</span>
-  </a>
-  <a class="card" style="--c:#ff4fa3" href="https://solverone.com.br/FeatureTesting/danca-na-sala.html?tv=auto" tabindex="0">
-    <div class="ico">💃</div>
-    <h2>Dança na Sala</h2>
-    <p>Música do YouTube na TV e as câmeras dos celulares ao vivo, com neon e placar de energia.</p>
-    <span class="tag">▶ Abrir na TV</span>
-  </a>
-  <a class="card" style="--c:#ff9f1c" href="https://solverone.com.br/FeatureTesting/vruuum/?tv=auto" tabindex="0">
-    <div class="ico">🏎️</div>
-    <h2>Vruuum!</h2>
-    <p>Corrida de carrinho: setas do controle para virar, OK para buzinar. Pegue as estrelas!</p>
-    <span class="tag">▶ Abrir na TV</span>
-  </a>
-  <a class="card" style="--c:#cfa8ff" href="https://solverone.com.br/FeatureTesting/purpurina/?tv=auto" tabindex="0">
-    <div class="ico">💄</div>
-    <h2>Purpurina</h2>
-    <p>Maquiagem, roupas e desfile. A TV mostra um código: no celular, toque em 📺 Conectar na TV e brinque com o celular de controle. Música do YouTube e do Spotify.</p>
-    <span class="tag">▶ Abrir na TV</span>
-  </a>
-  <a class="card" style="--c:#c6ff3d" href="https://solverone.com.br/FeatureTesting/rabiscolandia/?tv=auto" tabindex="0">
-    <div class="ico">🎨</div>
-    <h2>Rabiscolândia</h2>
-    <p>Desenhar e colorir na TV. A TV mostra um código: no celular, toque em 📺 Na TV → 🎮 Controlar e desenhe com o dedo, mexendo o celular ou com a mão na câmera.</p>
-    <span class="tag">▶ Abrir na TV</span>
-  </a>
-  <a class="card" style="--c:#3ee8ff" href="https://solverone.com.br/contador-de-historias/" tabindex="0">
-    <div class="ico">📖</div>
-    <h2>Contador de Histórias</h2>
-    <p>Histórias para ler e ouvir na tela grande, antes de dormir.</p>
-    <span class="tag">▶ Abrir</span>
-  </a>
-</div>
+<div class="grid" data-catalogo="tv"></div>
+<script src="../bolinho-de-chuva/catalogo.js"></script>
 <footer>
   <p>No celular, abra o mesmo jogo em <b>solverone.com.br/bolinho-de-chuva</b> e digite o código que a TV mostra.</p>
 </footer>
