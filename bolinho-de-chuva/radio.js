@@ -1,9 +1,12 @@
 /*
   Rádio do Bolinho: 10 músicas de rock alegre gravadas (Kevin MacLeod, CC BY 4.0, e HoliznaCC0, domínio público; pasta musicas/,
   créditos em CREDITOS.md) tocando uma depois da outra, num player fixo no pé da página.
-  - Só começa com um toque (os navegadores não deixam site tocar som sozinho).
+  - Começa sozinha ao abrir a página. Celular e computador costumam bloquear som antes de a pessoa tocar na
+    página: nesse caso começa no PRIMEIRO TOQUE EM QUALQUER LUGAR (menos no próprio player, que tem os botões dele).
+  - Quem pausou não é surpreendido: a página lembra (bolinho:radio:pausado) e só volta a tocar sozinha depois que
+    alguém tocar ▶ de novo. Com "economia de dados" ligada, não toca sozinha.
   - ⏯ pausa e continua; ⏮ ⏭ trocam; as bolinhas mostram as 10 músicas e escolhem uma.
-  - Nada baixa antes do toque (preload="none"); cada música baixa só quando vai tocar.
+  - Cada música baixa só quando vai tocar (preload="none").
   - Lembra em que música parou (localStorage, com proteção para quando não houver).
   - Tela de bloqueio do celular mostra a música e os botões (Media Session).
 */
@@ -23,6 +26,9 @@
     { t: 'RetroFuture Clean', a: 'retrofuture-clean', au: K }
   ];
   var CHAVE = 'bolinho:radio:musica';
+  var CHAVE_PAUSA = 'bolinho:radio:pausado';
+  function pausouAntes() { try { return localStorage.getItem(CHAVE_PAUSA) === '1'; } catch (e) { return false; } }
+  function lembrarPausa(sim) { try { if (sim) localStorage.setItem(CHAVE_PAUSA, '1'); else localStorage.removeItem(CHAVE_PAUSA); } catch (e) {} }
 
   function ler() { try { return parseInt(localStorage.getItem(CHAVE), 10) || 0; } catch (e) { return 0; } }
   function gravar(v) { try { localStorage.setItem(CHAVE, String(v)); } catch (e) {} }
@@ -124,13 +130,14 @@
   }
 
   bPlay.addEventListener('click', function () {
-    if (!comecou) { tocar(atual); return; }
-    if (audio.paused) { var p = audio.play(); if (p && p.catch) p.catch(function () {}); } else audio.pause();
+    if (!comecou) { lembrarPausa(false); tocar(atual); return; }
+    if (audio.paused) { lembrarPausa(false); var p = audio.play(); if (p && p.catch) p.catch(function () {}); }
+    else { lembrarPausa(true); audio.pause(); }
   });
-  barra.querySelector('.r-ant').addEventListener('click', function () { tocar(atual - 1); });
-  barra.querySelector('.r-prox').addEventListener('click', function () { tocar(atual + 1); });
+  barra.querySelector('.r-ant').addEventListener('click', function () { lembrarPausa(false); tocar(atual - 1); });
+  barra.querySelector('.r-prox').addEventListener('click', function () { lembrarPausa(false); tocar(atual + 1); });
   for (var j = 0; j < listaBolinhas.length; j++) {
-    listaBolinhas[j].addEventListener('click', function () { tocar(parseInt(this.getAttribute('data-n'), 10)); });
+    listaBolinhas[j].addEventListener('click', function () { lembrarPausa(false); tocar(parseInt(this.getAttribute('data-n'), 10)); });
   }
 
   audio.addEventListener('play', botaoPlay);
@@ -147,8 +154,8 @@
 
   if ('mediaSession' in navigator) {
     try {
-      navigator.mediaSession.setActionHandler('play', function () { if (!comecou) tocar(atual); else audio.play(); });
-      navigator.mediaSession.setActionHandler('pause', function () { audio.pause(); });
+      navigator.mediaSession.setActionHandler('play', function () { lembrarPausa(false); if (!comecou) tocar(atual); else audio.play(); });
+      navigator.mediaSession.setActionHandler('pause', function () { lembrarPausa(true); audio.pause(); });
       navigator.mediaSession.setActionHandler('previoustrack', function () { tocar(atual - 1); });
       navigator.mediaSession.setActionHandler('nexttrack', function () { tocar(atual + 1); });
     } catch (e) {}
@@ -156,4 +163,24 @@
 
   mostrar();
   botaoPlay();
+
+  // Tocar sozinho ao abrir. Se o navegador bloquear, espera o primeiro toque em qualquer lugar da página.
+  var con = navigator.connection;
+  if (!pausouAntes() && !(con && con.saveData)) {
+    var esperando = false;
+    var noPrimeiroToque = function (e) {
+      if (e.target && e.target.closest && e.target.closest('.radio')) return;   // o player cuida dos botões dele
+      ['pointerdown', 'keydown', 'touchstart'].forEach(function (t) { document.removeEventListener(t, noPrimeiroToque, true); });
+      if (audio.paused && !pausouAntes()) { var p = audio.play(); if (p && p.catch) p.catch(function () {}); }
+    };
+    comecou = true;
+    audio.src = 'musicas/' + MUSICAS[atual].a + '.mp3';
+    mostrar();
+    var p0 = audio.play();
+    if (p0 && p0.catch) p0.catch(function (err) {
+      if (!err || err.name !== 'NotAllowedError' || esperando) return;
+      esperando = true;
+      ['pointerdown', 'keydown', 'touchstart'].forEach(function (t) { document.addEventListener(t, noPrimeiroToque, true); });
+    });
+  }
 })();
