@@ -1,5 +1,5 @@
 /*
-  Rádio do Bolinho: 10 músicas de rock gravadas (Kevin MacLeod, licença CC BY 4.0, pasta musicas/,
+  Rádio do Bolinho: 10 músicas de rock alegre gravadas (Kevin MacLeod, CC BY 4.0, e HoliznaCC0, domínio público; pasta musicas/,
   créditos em CREDITOS.md) tocando uma depois da outra, num player fixo no pé da página.
   - Só começa com um toque (os navegadores não deixam site tocar som sozinho).
   - ⏯ pausa e continua; ⏮ ⏭ trocam; as bolinhas mostram as 10 músicas e escolhem uma.
@@ -8,19 +8,20 @@
   - Tela de bloqueio do celular mostra a música e os botões (Media Session).
 */
 (function () {
+  // Rock alegre e leve, para criança: tom maior, pouca distorção (medido em cada faixa antes de entrar).
+  var K = 'Kevin MacLeod', H = 'HoliznaCC0';
   var MUSICAS = [
-    { t: 'Metalmania', a: 'metalmania' },
-    { t: 'Big Mojo', a: 'big-mojo' },
-    { t: "Ryno's Theme", a: 'rynos-theme' },
-    { t: 'Volatile Reaction', a: 'volatile-reaction' },
-    { t: 'Exit the Premises', a: 'exit-the-premises' },
-    { t: 'Ready Aim Fire', a: 'ready-aim-fire' },
-    { t: 'Getting it Done', a: 'getting-it-done' },
-    { t: 'Heroic Age', a: 'heroic-age' },
-    { t: 'Movement Proposition', a: 'movement-proposition' },
-    { t: 'Unholy Knight', a: 'unholy-knight' }
+    { t: 'Classic', a: 'classic', au: H },
+    { t: 'Chipper', a: 'chipper', au: K },
+    { t: 'Americana', a: 'americana', au: H },
+    { t: 'Cool Rock', a: 'cool-rock', au: K },
+    { t: 'Hotrock', a: 'hotrock', au: K },
+    { t: 'Jams', a: 'jams', au: H },
+    { t: 'Gearhead', a: 'gearhead', au: K },
+    { t: 'Feelin Good', a: 'feelin-good', au: K },
+    { t: 'Delay Rock', a: 'delay-rock', au: K },
+    { t: 'RetroFuture Clean', a: 'retrofuture-clean', au: K }
   ];
-  var AUTOR = 'Kevin MacLeod';
   var CHAVE = 'bolinho:radio:musica';
 
   function ler() { try { return parseInt(localStorage.getItem(CHAVE), 10) || 0; } catch (e) { return 0; } }
@@ -92,13 +93,14 @@
       titulo.textContent = comecou ? MUSICAS[atual].t : '🎸 Rock no Bolinho';
       titulo.classList.remove('troca');
     }, 120);
-    autor.innerHTML = (comecou ? (atual + 1) + '/' + MUSICAS.length : 'Tocar / Play') + ' · ' + AUTOR + ' · <a href="https://github.com/MarceloNeco/marceloneco.github.io/blob/main/bolinho-de-chuva/CREDITOS.md" target="_blank" rel="noopener">CC BY 4.0</a>';
+    var m = MUSICAS[atual];
+    autor.innerHTML = (comecou ? (atual + 1) + '/' + MUSICAS.length + ' · ' + m.au + ' · ' + (m.au === H ? 'CC0' : 'CC BY 4.0') : 'Tocar / Play') + ' · <a href="https://github.com/MarceloNeco/marceloneco.github.io/blob/main/bolinho-de-chuva/CREDITOS.md" target="_blank" rel="noopener">créditos</a>';
     for (var i = 0; i < listaBolinhas.length; i++) {
       if (i === atual) listaBolinhas[i].setAttribute('aria-current', 'true'); else listaBolinhas[i].removeAttribute('aria-current');
     }
     if ('mediaSession' in navigator && comecou && window.MediaMetadata) {
       try {
-        navigator.mediaSession.metadata = new MediaMetadata({ title: MUSICAS[atual].t, artist: AUTOR, album: 'Bolinho de Chuva',
+        navigator.mediaSession.metadata = new MediaMetadata({ title: MUSICAS[atual].t, artist: MUSICAS[atual].au, album: 'Bolinho de Chuva',
           artwork: [{ src: 'icone-512.png', sizes: '512x512', type: 'image/png' }] });
       } catch (e) {}
     }
