@@ -6,14 +6,18 @@
   caches da própria pasta, porque todos os apps da SolverONE moram no mesmo endereço e dividem o cache.
   A cada mudança, suba a VERSAO (nas duas cópias).
 */
-var VERSAO = 5;
+var VERSAO = 6;
 var PASTA = (self.registration.scope.replace(/\/$/, '').split('/').pop() || 'raiz');
 var PREFIXO = 'dgo-' + PASTA + '-';
 var CACHE = PREFIXO + 'v' + VERSAO;
-var BASICO = ['./', 'manifest.webmanifest'];
+var BASICO = ['./', 'manifest.webmanifest',
+  // arquivos compartilhados pelas duas páginas (estante): guardados já na instalação, para abrir sem internet
+  '/bolinho-de-chuva/estante.css', '/bolinho-de-chuva/catalogo.js', '/bolinho-de-chuva/jogos.js',
+  '/bolinho-de-chuva/kids.js', '/bolinho-de-chuva/instalar.js', '/bolinho-de-chuva/radio.js',
+  '/bolinho-de-chuva/tela-cheia.js'];
 
 self.addEventListener('install', function (e) {
-  e.waitUntil(caches.open(CACHE).then(function (c) { return c.addAll(BASICO); }).then(function () { return self.skipWaiting(); }));
+  e.waitUntil(caches.open(CACHE).then(function (c) { return Promise.all(BASICO.map(function (u) { return c.add(u).catch(function () {}); })); }).then(function () { return self.skipWaiting(); }));
 });
 
 self.addEventListener('activate', function (e) {
@@ -27,8 +31,11 @@ self.addEventListener('fetch', function (e) {
   var req = e.request;
   var url = new URL(req.url);
   var escopo = new URL(self.registration.scope);
-  // Só cuida do que é do próprio Bolinho; jogos e outros apps seguem com o service worker deles.
-  if (req.method !== 'GET' || url.origin !== escopo.origin || url.pathname.indexOf(escopo.pathname) !== 0) return;
+  // Cuida do próprio escopo e dos arquivos compartilhados em /bolinho-de-chuva/ (estante.css, catalogo.js,
+  // radio.js, etc.), porque /kids e /bolinho-de-chuva são a mesma página servida em dois endereços. Jogos e
+  // outros apps seguem com o service worker deles.
+  if (req.method !== 'GET' || url.origin !== escopo.origin) return;
+  if (url.pathname.indexOf(escopo.pathname) !== 0 && url.pathname.indexOf('/bolinho-de-chuva/') !== 0) return;
   // Música não passa por aqui: arquivo grande, tocado em pedaços pelo navegador; vem sempre da internet.
   if (/\.mp3$/i.test(url.pathname)) return;
   e.respondWith(new Promise(function (resolve) {

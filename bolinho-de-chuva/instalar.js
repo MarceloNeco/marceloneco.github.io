@@ -176,8 +176,9 @@
       '<ol><li>Toque nos <b>três pontinhos ⋮</b>, no canto de cima, à direita da barra de endereço.</li>' +
       '<li>Toque em <b>Adicionar à tela inicial</b> (em inglês: <b>Add to Home Screen</b>). Se não estiver na lista, role a lista para baixo.</li>' +
       '<li>Deixe o nome <b>' + NOME + '</b> e toque em <b>Adicionar</b>.</li>' +
-      '<li>Volte para a tela inicial do tablet: o ícone do ' + NOME + ' está lá. Toque nele para abrir direto.</li></ol>' +
-      '<p class="en">Fire tablet (Silk): ⋮ menu → Add to Home Screen → Add.</p>' +
+      '<li>Volte para a tela inicial do tablet e abra pelo <b>ícone do ' + NOME + '</b> (não pelo navegador).</li></ol>' +
+      '<p class="aviso">📺 <b>É assim que fica em tela cheia no Fire.</b> Aberto pelo ícone, o ' + NOME + ' abre sem a barra de endereço, como um aplicativo. No navegador do Fire a barra não some — ele não tem tela cheia.</p>' +
+      '<p class="en">Fire tablet (Silk): ⋮ menu → Add to Home Screen → Add, then open from the icon for full screen.</p>' +
       '<p class="aviso">Se o tablet estiver no perfil de criança (Amazon Kids) e essa opção não aparecer, faça estes passos no perfil do adulto.</p>';
     if (ios) return '<ol><li>Abra esta página no <b>Safari</b> (se estiver dentro de outro app, toque em <b>Abrir no Safari</b>).</li>' +
       '<li>Toque em <b>Compartilhar</b> (o quadrado com a seta para cima ⬆, embaixo ou no topo da tela).</li>' +

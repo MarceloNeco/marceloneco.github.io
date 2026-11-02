@@ -55,7 +55,7 @@
       tv: { texto: 'Histórias para ler e ouvir na tela grande, antes de dormir.', tag: '▶ Abrir', param: '' } }
   ];
   // cartão final da estante (não é um jogo)
-  var EM_BREVE = { ico: '➕', nome: 'Próxima brincadeira', cor: '#ffd166', texto: 'Mais jogos de movimento, música e imaginação estão a caminho.', en: 'More games on the way.', tag: '🚧 Em breve / Soon' };
+  var EM_BREVE = { url: '#', ico: '➕', nome: 'Próxima brincadeira', cor: '#ffd166', texto: 'Mais jogos de movimento, música e imaginação estão a caminho.', en: 'More games on the way.', tag: '🚧 Em breve / Soon' };
 
   window.BolinhoCatalogo = {
     jogos: JOGOS,
@@ -69,34 +69,34 @@
     if (texto != null) e.textContent = texto;
     return e;
   }
-  function cartao(j, modo) {
+  // Um cartão só, igual nas duas páginas (/bolinho-de-chuva e /kids). A kids.js, numa TV de verdade,
+  // adiciona ?tv=auto e cuida das setas do controle; no celular/tablet não muda nada.
+  function cartao(j) {
     var a = el('a', 'card');
     a.style.setProperty('--c', j.cor);
-    var tv = modo === 'tv' && j.tv;
-    a.href = tv ? j.url + (j.tv.param || '') : j.url;
+    a.href = j.url;
     a.setAttribute('data-jogo', j.id);
-    if (tv) a.tabIndex = 0;
-    else if (j.instalar) { a.setAttribute('data-instalar', j.url); a.setAttribute('data-sw', window.BolinhoCatalogo.sw(j)); }
+    if (j.tv) a.setAttribute('data-tv', j.tv.param || '?tv=auto');
+    if (j.instalar) { a.setAttribute('data-instalar', j.url); a.setAttribute('data-sw', window.BolinhoCatalogo.sw(j)); }
     else if (j.soOnline) a.setAttribute('data-so-online', '');
     a.appendChild(el('div', 'ico', j.ico));
     a.appendChild(el('h2', null, j.nome));
-    a.appendChild(el('p', null, tv ? j.tv.texto : j.texto));
-    if (!tv && j.en) a.appendChild(el('p', 'en', j.en));
-    a.appendChild(el('span', 'tag', tv ? j.tv.tag : j.tag));
+    a.appendChild(el('p', null, j.texto));
+    if (j.en) a.appendChild(el('p', 'en', j.en));
+    a.appendChild(el('span', 'tag', j.tag));
     return a;
   }
 
-  // monta cada grade marcada com data-catalogo que já existe na página (o script vem logo depois dela)
+  // monta cada grade marcada com data-catalogo (o script vem logo depois dela)
   var grades = document.querySelectorAll('[data-catalogo]');
   for (var i = 0; i < grades.length; i++) {
-    var g = grades[i], modo = g.getAttribute('data-catalogo');
+    var g = grades[i];
     if (g.getAttribute('data-montado')) continue;
-    JOGOS.forEach(function (j) { if (modo !== 'tv' || j.tv) g.appendChild(cartao(j, modo)); });
-    if (modo === 'estante') {
-      var b = cartao(EM_BREVE, 'estante');
-      b.className = 'card breve'; b.href = '#'; b.setAttribute('aria-disabled', 'true'); b.tabIndex = -1; b.removeAttribute('data-jogo');
-      g.appendChild(b);
-    }
+    JOGOS.forEach(function (j) { g.appendChild(cartao(j)); });
+    var b = cartao(EM_BREVE);
+    b.className = 'card breve'; b.href = '#'; b.setAttribute('aria-disabled', 'true'); b.tabIndex = -1;
+    b.removeAttribute('data-jogo');
+    g.appendChild(b);
     g.setAttribute('data-montado', '1');
   }
 })();

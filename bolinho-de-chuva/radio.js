@@ -123,7 +123,7 @@
     atual = (n + MUSICAS.length) % MUSICAS.length;
     gravar(atual);
     comecou = true;
-    audio.src = 'musicas/' + MUSICAS[atual].a + '.mp3';
+    audio.src = '/bolinho-de-chuva/musicas/' + MUSICAS[atual].a + '.mp3';
     mostrar();
     var p = audio.play();
     if (p && p.catch) p.catch(function () { botaoPlay(); });
@@ -174,7 +174,7 @@
       if (audio.paused && !pausouAntes()) { var p = audio.play(); if (p && p.catch) p.catch(function () {}); }
     };
     comecou = true;
-    audio.src = 'musicas/' + MUSICAS[atual].a + '.mp3';
+    audio.src = '/bolinho-de-chuva/musicas/' + MUSICAS[atual].a + '.mp3';
     mostrar();
     var p0 = audio.play();
     if (p0 && p0.catch) p0.catch(function (err) {
