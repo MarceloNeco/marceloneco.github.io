@@ -1,47 +1,10 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bolinho de Chuva — brincadeiras para a família · SolverONE</title>
-<meta name="description" content="Bolinho de Chuva: as brincadeiras da SolverONE para crianças e família. Histórias, dança, corrida e jogos de movimento na TV. / Family games and stories.">
-<meta name="theme-color" content="#0b0a1f">
-<link rel="icon" href="/FeatureTesting/baguncolandia/icone-192.png">
-<link rel="manifest" href="manifest.webmanifest">
-<link rel="apple-touch-icon" href="/bolinho-de-chuva/icone-180.png">
-<meta name="apple-mobile-web-app-title" content="Bolinho">
-<meta name="mobile-web-app-capable" content="yes">
-<link rel="stylesheet" href="/bolinho-de-chuva/estante.css">
-<!--
-  Bolinho de Chuva — a estante das brincadeiras para criança da SolverONE.
-  ESTA PÁGINA E A /kids SÃO A MESMA COISA: carregam o mesmo estante.css e os mesmos scripts; /kids é só
-  o atalho curto para digitar na TV. Para mudar qualquer uma, mude estas duas (só diferem no <meta robots>).
-  Lista de jogos: catalogo.js (uma entrada por jogo monta estante + TV). Rádio: radio.js. Instalar + guardar
-  todos: jogos.js e instalar.js. Controle da TV: kids.js. Tela cheia: tela-cheia.js.
--->
-</head>
-<body>
-<div class="wrap">
-  <div class="marca"><span>🍩</span> SolverONE apresenta / presents</div>
-  <h1>Bolinho de Chuva</h1>
-  <p class="sub">Brincadeiras para criança e família, sem cadastro e sem anúncio: histórias para dormir, dança e jogos em que se brinca com o corpo todo na frente da TV. <span class="en">Family games and stories, no sign-up, no ads.</span></p>
-  <p class="sub tv-dica" id="dicaCursor" style="display:none">Com a bolinha do cursor na tela, as setas movem a bolinha. Pare de mexer o controle uns segundos (a bolinha some) e aí as setas escolhem. Ou aponte e aperte OK em cima do jogo.</p>
-
-  <div class="todos" id="todos" hidden></div>
-
-  <div class="grid" data-catalogo="estante"></div>
-
-  <footer>
-    <p>Para a TV: digite <b>solverone.com.br/kids</b> no navegador da TV e escolha com o controle.</p>
-    <p>Nada é gravado; o vídeo fica no Wi-Fi de casa. <a href="https://solverone.com.br/">← Voltar ao SolverONE</a></p>
-  </footer>
-</div>
-
-<script src="/bolinho-de-chuva/catalogo.js"></script>
-<script src="/bolinho-de-chuva/jogos.js"></script>
-<script src="/bolinho-de-chuva/kids.js"></script>
-<script src="/bolinho-de-chuva/instalar.js" data-nome="Bolinho de Chuva" data-icone="/bolinho-de-chuva/icone-192.png"></script>
-<script src="/bolinho-de-chuva/radio.js"></script>
-<script src="/bolinho-de-chuva/tela-cheia.js"></script>
-</body>
-</html>
+<html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Bolinho de Chuva mudou de endereço</title>
+<!-- O Bolinho de Chuva mudou para solverone.com.br/kids/ (repositório kids, 02/Nov/2026). Esta página só leva para lá;
+     o sw.js desta pasta desliga o service worker antigo. -->
+<script>location.replace('/kids/' + location.search + location.hash);</script>
+</head><body style="background:#0b0a1f;color:#f3f0ff;font-family:system-ui,sans-serif;text-align:center;padding:3rem 1rem">
+<p>O Bolinho de Chuva mudou de endereço. <a style="color:#3ee8ff" href="/kids/">Abrir / Open</a></p>
+</body></html>
