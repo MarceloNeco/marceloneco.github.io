@@ -6,57 +6,30 @@
 <title>Bolinho de Chuva — brincadeiras para a família · SolverONE</title>
 <meta name="description" content="Bolinho de Chuva: as brincadeiras da SolverONE para crianças e família. Histórias, dança, corrida e jogos de movimento na TV. / Family games and stories.">
 <meta name="theme-color" content="#0b0a1f">
-<link rel="icon" href="../FeatureTesting/baguncolandia/icone-192.png">
+<link rel="icon" href="/FeatureTesting/baguncolandia/icone-192.png">
 <link rel="manifest" href="manifest.webmanifest">
-<link rel="apple-touch-icon" href="icone-180.png">
+<link rel="apple-touch-icon" href="/bolinho-de-chuva/icone-180.png">
 <meta name="apple-mobile-web-app-title" content="Bolinho">
 <meta name="mobile-web-app-capable" content="yes">
+<link rel="stylesheet" href="/bolinho-de-chuva/estante.css">
 <!--
-  Bolinho de Chuva — a "estante" das brincadeiras para criança da SolverONE.
-  Para acrescentar uma brincadeira: uma entrada em catalogo.js (a lista única; também monta a TV em /kids/).
-  PT e EN lado a lado.
-  Botão "📲 Instalar" em cada cartão e jogos guardados no aparelho: jogos.js (data-instalar, data-sw,
-  data-so-online em cada cartão).
-  Rádio de rock no pé da página: radio.js (10 músicas em musicas/, créditos em CREDITOS.md).
-  Botão de instalar: instalar.js, o botão fixo "Instalar o aplicativo" no topo, que com um toque instala
-  o Bolinho no aparelho (manifest.webmanifest + sw.js nesta pasta) e, onde o navegador não instala
-  sozinho, mostra o passo a passo daquele aparelho (iPhone, Android, Fire, Samsung, computador, TV).
+  Bolinho de Chuva — a estante das brincadeiras para criança da SolverONE.
+  ESTA PÁGINA E A /kids SÃO A MESMA COISA: carregam o mesmo estante.css e os mesmos scripts; /kids é só
+  o atalho curto para digitar na TV. Para mudar qualquer uma, mude estas duas (só diferem no <meta robots>).
+  Lista de jogos: catalogo.js (uma entrada por jogo monta estante + TV). Rádio: radio.js. Instalar + guardar
+  todos: jogos.js e instalar.js. Controle da TV: kids.js. Tela cheia: tela-cheia.js.
 -->
-<style>
-:root{--bg:#0b0a1f;--bg2:#1a1446;--card:#221b4d;--text:#f3f0ff;--muted:#b3acd6;--border:#3a2f73;--lima:#c6ff3d;--rosa:#ff4fa3;--ciano:#3ee8ff;--ouro:#ffd166}
-*{box-sizing:border-box;margin:0}
-body{font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;background:radial-gradient(ellipse at 50% 0%,var(--bg2),var(--bg) 70%);color:var(--text);min-height:100vh;padding:1.5rem 1rem 3rem}
-.wrap{max-width:60rem;margin:0 auto}
-.marca{display:flex;align-items:center;gap:.6rem;color:var(--muted);font-size:.95rem}
-.marca span{font-size:2rem;filter:drop-shadow(0 0 10px var(--ouro))}
-h1{font-size:clamp(2rem,6vw,3.4rem);line-height:1.05;margin:.4rem 0 .6rem;background:linear-gradient(90deg,var(--lima),var(--ciano) 40%,var(--rosa));-webkit-background-clip:text;background-clip:text;color:transparent}
-.sub{color:var(--muted);font-size:1.05rem;line-height:1.5;max-width:46rem}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(16rem,1fr));gap:1rem;margin-top:1.8rem}
-.card{display:flex;flex-direction:column;gap:.5rem;background:var(--card);border:1px solid var(--border);border-radius:20px;padding:1.2rem;text-decoration:none;color:inherit;transition:transform .15s ease-out,box-shadow .15s;min-height:44px}
-.card:hover,.card:focus-visible{transform:translateY(-3px);box-shadow:0 0 0 2px var(--c),0 12px 30px rgba(0,0,0,.4);outline:none}
-.card .ico{font-size:2.6rem;line-height:1}
-.card h2{font-size:1.3rem}
-.card p{color:var(--muted);line-height:1.45;font-size:.95rem}
-.card .tag{align-self:flex-start;margin-top:auto;font-size:.8rem;font-weight:700;color:#1a1446;background:var(--c);padding:.3rem .7rem;border-radius:999px}
-.card .en{color:var(--muted);font-size:.85rem;font-style:italic}
-.breve{opacity:.6}
-.breve .tag{background:var(--border);color:var(--text)}
-footer{margin-top:2.5rem;color:var(--muted);font-size:.85rem;line-height:1.5}
-footer a{color:var(--ciano)}
-body{padding-top:0}
-@media (prefers-reduced-motion:reduce){.card{transition:none}}
-</style>
 </head>
 <body>
 <div class="wrap">
   <div class="marca"><span>🍩</span> SolverONE apresenta / presents</div>
   <h1>Bolinho de Chuva</h1>
   <p class="sub">Brincadeiras para criança e família, sem cadastro e sem anúncio: histórias para dormir, dança e jogos em que se brinca com o corpo todo na frente da TV. <span class="en">Family games and stories, no sign-up, no ads.</span></p>
+  <p class="sub tv-dica" id="dicaCursor" style="display:none">Com a bolinha do cursor na tela, as setas movem a bolinha. Pare de mexer o controle uns segundos (a bolinha some) e aí as setas escolhem. Ou aponte e aperte OK em cima do jogo.</p>
 
   <div class="todos" id="todos" hidden></div>
 
   <div class="grid" data-catalogo="estante"></div>
-  <script src="catalogo.js"></script>
 
   <footer>
     <p>Para a TV: digite <b>solverone.com.br/kids</b> no navegador da TV e escolha com o controle.</p>
@@ -64,9 +37,11 @@ body{padding-top:0}
   </footer>
 </div>
 
-<script src="instalar.js" data-nome="Bolinho de Chuva" data-icone="icone-192.png"></script>
-<script src="radio.js"></script>
-<script src="jogos.js"></script>
-<script src="tela-cheia.js"></script>
+<script src="/bolinho-de-chuva/catalogo.js"></script>
+<script src="/bolinho-de-chuva/jogos.js"></script>
+<script src="/bolinho-de-chuva/kids.js"></script>
+<script src="/bolinho-de-chuva/instalar.js" data-nome="Bolinho de Chuva" data-icone="/bolinho-de-chuva/icone-192.png"></script>
+<script src="/bolinho-de-chuva/radio.js"></script>
+<script src="/bolinho-de-chuva/tela-cheia.js"></script>
 </body>
 </html>

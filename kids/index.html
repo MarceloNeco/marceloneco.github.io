@@ -4,57 +4,45 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex">
-<title>Kids na TV — Bolinho de Chuva · SolverONE</title>
-<link rel="icon" href="../FeatureTesting/baguncolandia/icone-192.png">
+<title>Bolinho de Chuva — brincadeiras para a família · SolverONE</title>
+<meta name="description" content="Bolinho de Chuva: as brincadeiras da SolverONE para crianças e família. Histórias, dança, corrida e jogos de movimento na TV. / Family games and stories.">
+<meta name="theme-color" content="#0b0a1f">
+<link rel="icon" href="/FeatureTesting/baguncolandia/icone-192.png">
 <link rel="manifest" href="manifest.webmanifest">
-<link rel="apple-touch-icon" href="../bolinho-de-chuva/icone-180.png">
-<meta name="apple-mobile-web-app-title" content="Bolinho Kids">
+<link rel="apple-touch-icon" href="/bolinho-de-chuva/icone-180.png">
+<meta name="apple-mobile-web-app-title" content="Bolinho">
 <meta name="mobile-web-app-capable" content="yes">
+<link rel="stylesheet" href="/bolinho-de-chuva/estante.css">
 <!--
-  solverone.com.br/kids — atalho curto para digitar na TV.
-  Lista só o que funciona na TV, com botões grandes para o controle remoto: as setas passam de um
-  botão para outro, OK (Enter) abre. Os jogos abrem já no papel de TV (?tv=auto); em tablet ou celular de toque (ex.: tablet Fire), o kids.js tira o ?tv=auto e o jogo abre no jeito normal.
-  Os cartões vêm da lista única ../bolinho-de-chuva/catalogo.js (jogo com "tv" aparece aqui).
-  Scripts: a navegação pelas setas (kids.js) e o botão fixo "Instalar o aplicativo" (instalar.js, o mesmo
-  da estante do Bolinho; manifest.webmanifest e sw.js desta pasta).
+  Bolinho de Chuva — a estante das brincadeiras para criança da SolverONE.
+  ESTA PÁGINA E A /kids SÃO A MESMA COISA: carregam o mesmo estante.css e os mesmos scripts; /kids é só
+  o atalho curto para digitar na TV. Para mudar qualquer uma, mude estas duas (só diferem no <meta robots>).
+  Lista de jogos: catalogo.js (uma entrada por jogo monta estante + TV). Rádio: radio.js. Instalar + guardar
+  todos: jogos.js e instalar.js. Controle da TV: kids.js. Tela cheia: tela-cheia.js.
 -->
-<style>
-:root{--bg:#0b0a1f;--bg2:#1a1446;--card:#221b4d;--text:#f3f0ff;--muted:#b3acd6;--border:#3a2f73;--lima:#c6ff3d;--rosa:#ff4fa3;--ciano:#3ee8ff;--ouro:#ffd166}
-*{box-sizing:border-box;margin:0}
-html,body{height:100%}
-body{font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;background:radial-gradient(ellipse at 50% 0%,var(--bg2),var(--bg) 70%);color:var(--text);min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:4vh 4vw;text-align:center}
-.marca{margin-top:auto}
-footer{margin-bottom:auto}
-.marca{color:var(--muted);font-size:2.6vh}
-.marca span{font-size:5vh;filter:drop-shadow(0 0 10px var(--ouro))}
-h1{font-size:7vh;line-height:1.05;margin:1vh 0 1vh;background:linear-gradient(90deg,var(--lima),var(--ciano) 40%,var(--rosa));-webkit-background-clip:text;background-clip:text;color:transparent}
-.sub{color:var(--muted);font-size:2.6vh;margin-bottom:4vh}
-.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:3vh;width:100%;max-width:170vh}
-.card{display:flex;flex-direction:column;align-items:center;gap:1.2vh;background:var(--card);border:.5vh solid var(--border);border-radius:3vh;padding:4vh 2vh;text-decoration:none;color:inherit;min-height:34vh;justify-content:center;transition:transform .15s ease-out}
-.card .ico{font-size:9vh;line-height:1}
-.card h2{font-size:3.6vh}
-.card p{color:var(--muted);font-size:2.3vh;line-height:1.35}
-.card .tag{margin-top:1vh;font-size:2.2vh;font-weight:700;color:#1a1446;background:var(--c);padding:.8vh 2.2vh;border-radius:999px}
-.card.sel,.card:focus,.card:focus-visible,.card:hover{outline:none;border-color:var(--c);box-shadow:0 0 0 .6vh var(--c),0 0 5vh var(--c);transform:scale(1.04)}
-footer{margin-top:4vh;color:var(--muted);font-size:2.2vh;line-height:1.5}
-footer b{color:var(--ouro)}
-@media (max-width:700px){.grid{grid-template-columns:1fr}.card{min-height:0}h1{font-size:2.2rem}.sub,.marca,.card p,.card .tag,footer{font-size:1rem}.card h2{font-size:1.4rem}.card .ico{font-size:3rem}}
-@media (prefers-reduced-motion:reduce){.card{transition:none}}
-#debug{position:fixed;left:2vh;bottom:2vh;max-width:90vw;background:rgba(0,0,0,.8);color:#c6ff3d;font:2.2vh/1.4 monospace;padding:1.5vh 2vh;border-radius:1.5vh;z-index:9;white-space:pre-wrap;text-align:left}
-</style>
 </head>
 <body>
-<div class="marca"><span>🍩</span> Bolinho de Chuva · SolverONE</div>
-<h1>Kids na TV</h1>
-<p class="sub">Use as setas do controle para escolher e OK para abrir. / Use the remote’s arrows and OK.</p>
-<p class="sub" id="dicaCursor" style="display:none;color:var(--ouro)">Com a bolinha do cursor na tela, as setas movem a bolinha. Pare de mexer o controle uns segundos (a bolinha some) e aí as setas escolhem. Ou aponte e aperte OK em cima do jogo.</p>
-<div class="grid" data-catalogo="tv"></div>
-<script src="../bolinho-de-chuva/catalogo.js"></script>
-<footer>
-  <p>No celular, abra o mesmo jogo em <b>solverone.com.br/bolinho-de-chuva</b> e digite o código que a TV mostra.</p>
-</footer>
-<script src="kids.js"></script>
-<script src="../bolinho-de-chuva/tela-cheia.js"></script>
-<script src="../bolinho-de-chuva/instalar.js" data-nome="Bolinho Kids" data-icone="../bolinho-de-chuva/icone-192.png"></script>
+<div class="wrap">
+  <div class="marca"><span>🍩</span> SolverONE apresenta / presents</div>
+  <h1>Bolinho de Chuva</h1>
+  <p class="sub">Brincadeiras para criança e família, sem cadastro e sem anúncio: histórias para dormir, dança e jogos em que se brinca com o corpo todo na frente da TV. <span class="en">Family games and stories, no sign-up, no ads.</span></p>
+  <p class="sub tv-dica" id="dicaCursor" style="display:none">Com a bolinha do cursor na tela, as setas movem a bolinha. Pare de mexer o controle uns segundos (a bolinha some) e aí as setas escolhem. Ou aponte e aperte OK em cima do jogo.</p>
+
+  <div class="todos" id="todos" hidden></div>
+
+  <div class="grid" data-catalogo="estante"></div>
+
+  <footer>
+    <p>Para a TV: digite <b>solverone.com.br/kids</b> no navegador da TV e escolha com o controle.</p>
+    <p>Nada é gravado; o vídeo fica no Wi-Fi de casa. <a href="https://solverone.com.br/">← Voltar ao SolverONE</a></p>
+  </footer>
+</div>
+
+<script src="/bolinho-de-chuva/catalogo.js"></script>
+<script src="/bolinho-de-chuva/jogos.js"></script>
+<script src="/bolinho-de-chuva/kids.js"></script>
+<script src="/bolinho-de-chuva/instalar.js" data-nome="Bolinho de Chuva" data-icone="/bolinho-de-chuva/icone-192.png"></script>
+<script src="/bolinho-de-chuva/radio.js"></script>
+<script src="/bolinho-de-chuva/tela-cheia.js"></script>
 </body>
 </html>

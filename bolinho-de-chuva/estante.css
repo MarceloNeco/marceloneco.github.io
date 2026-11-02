@@ -1,0 +1,30 @@
+/* Visual da estante do Bolinho de Chuva — o MESMO nos dois endereços (/bolinho-de-chuva e /kids).
+   As duas páginas carregam este arquivo e os mesmos scripts, então são a mesma página; /kids é só o
+   atalho curto para digitar na TV. Responsivo: celular, tablet, computador e TV (foco visível para o
+   controle remoto). */
+:root{--bg:#0b0a1f;--bg2:#1a1446;--card:#221b4d;--text:#f3f0ff;--muted:#b3acd6;--border:#3a2f73;--lima:#c6ff3d;--rosa:#ff4fa3;--ciano:#3ee8ff;--ouro:#ffd166}
+*{box-sizing:border-box;margin:0}
+body{font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;background:radial-gradient(ellipse at 50% 0%,var(--bg2),var(--bg) 70%);color:var(--text);min-height:100vh;padding:0 1rem 3rem}
+.wrap{max-width:70rem;margin:0 auto}
+.marca{display:flex;align-items:center;gap:.6rem;color:var(--muted);font-size:.95rem;padding-top:.5rem}
+.marca span{font-size:2rem;filter:drop-shadow(0 0 10px var(--ouro))}
+h1{font-size:clamp(2rem,6vw,3.4rem);line-height:1.05;margin:.4rem 0 .6rem;background:linear-gradient(90deg,var(--lima),var(--ciano) 40%,var(--rosa));-webkit-background-clip:text;background-clip:text;color:transparent}
+.sub{color:var(--muted);font-size:1.05rem;line-height:1.5;max-width:46rem}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(16rem,1fr));gap:1rem;margin-top:1.8rem}
+.card{display:flex;flex-direction:column;gap:.5rem;background:var(--card);border:1px solid var(--border);border-radius:20px;padding:1.2rem;text-decoration:none;color:inherit;transition:transform .15s ease-out,box-shadow .15s;min-height:44px}
+.card:hover,.card:focus-visible,.card.sel{transform:translateY(-3px);box-shadow:0 0 0 2px var(--c),0 12px 30px rgba(0,0,0,.4);outline:none}
+.card .ico{font-size:2.6rem;line-height:1}
+.card h2{font-size:1.3rem}
+.card p{color:var(--muted);line-height:1.45;font-size:.95rem}
+.card .tag{align-self:flex-start;margin-top:auto;font-size:.8rem;font-weight:700;color:#1a1446;background:var(--c);padding:.3rem .7rem;border-radius:999px}
+.card .en{color:var(--muted);font-size:.85rem;font-style:italic}
+.breve{opacity:.6}
+.breve .tag{background:var(--border);color:var(--text)}
+footer{margin-top:2.5rem;color:var(--muted);font-size:.9rem;line-height:1.5}
+footer a{color:var(--ciano)}
+footer b{color:var(--ouro)}
+/* TV: cartões um pouco maiores e foco bem visível para o controle remoto */
+@media (min-width:60rem) and (pointer:coarse){.grid{grid-template-columns:repeat(3,1fr)}}
+.tv-dica{color:var(--ouro)}
+#debug{position:fixed;left:1rem;bottom:1rem;max-width:90vw;background:rgba(0,0,0,.8);color:#c6ff3d;font:.9rem/1.4 monospace;padding:.8rem 1rem;border-radius:12px;z-index:9;white-space:pre-wrap;text-align:left}
+@media (prefers-reduced-motion:reduce){.card{transition:none}}
