@@ -6,7 +6,7 @@
   caches da própria pasta, porque todos os apps da SolverONE moram no mesmo endereço e dividem o cache.
   A cada mudança, suba a VERSAO (nas duas cópias).
 */
-var VERSAO = 3;
+var VERSAO = 4;
 var PASTA = (self.registration.scope.replace(/\/$/, '').split('/').pop() || 'raiz');
 var PREFIXO = 'dgo-' + PASTA + '-';
 var CACHE = PREFIXO + 'v' + VERSAO;
