@@ -2,27 +2,38 @@
 
 ## Músicas do rádio (`musicas/`)
 
-Todas de **Kevin MacLeod (incompetech.com)**, licença **Creative Commons: By Attribution 4.0**
-(https://creativecommons.org/licenses/by/4.0/). Única alteração: conversão para MP3 de 128 kbps e volume
-igualado entre as faixas (loudnorm), para tocar leve no celular. O crédito aparece no próprio player.
+Rock alegre e leve, escolhido para criança: tom maior e pouca distorção, medidos em cada faixa antes de entrar.
+Todas instrumentais e de licença livre, que permite uso comercial. Única alteração: conversão para MP3 de 96 kbps
+com o volume igualado entre as faixas (loudnorm). O autor aparece no próprio player.
+
+### HoliznaCC0 — álbum "Rock Montage" — CC0 1.0 (domínio público)
+
+Doadas ao domínio público: não exigem crédito; ele fica aqui como cortesia.
+Fonte: https://freemusicarchive.org/music/holiznacc0/rock-montage — Licença: https://creativecommons.org/publicdomain/zero/1.0/
+
+| Arquivo | Música |
+|---|---|
+| `classic.mp3` | Classic |
+| `americana.mp3` | Americana |
+| `jams.mp3` | Jams |
+
+### Kevin MacLeod (incompetech.com) — CC BY 4.0
+
+Licença: Creative Commons Atribuição 4.0 — https://creativecommons.org/licenses/by/4.0/ (exige o crédito abaixo).
 
 | Arquivo | Crédito |
 |---|---|
-| `metalmania.mp3` | "Metalmania" by Kevin MacLeod (incompetech.com), CC BY 4.0 — ISRC USUAN1700023 |
-| `big-mojo.mp3` | "Big Mojo" by Kevin MacLeod (incompetech.com), CC BY 4.0 |
-| `rynos-theme.mp3` | "Ryno's Theme" by Kevin MacLeod (incompetech.com), CC BY 4.0 — ISRC USUAN1600016 |
-| `volatile-reaction.mp3` | "Volatile Reaction" by Kevin MacLeod (incompetech.com), CC BY 4.0 — ISRC USUAN1400039 |
-| `exit-the-premises.mp3` | "Exit the Premises" by Kevin MacLeod (incompetech.com), CC BY 4.0 — ISRC USUAN1500029 |
-| `ready-aim-fire.mp3` | "Ready Aim Fire" by Kevin MacLeod (incompetech.com), CC BY 4.0 — ISRC USUAN1500002 |
-| `getting-it-done.mp3` | "Getting it Done" by Kevin MacLeod (incompetech.com), CC BY 4.0 |
-| `heroic-age.mp3` | "Heroic Age" by Kevin MacLeod (incompetech.com), CC BY 4.0 — ISRC USUAN1100848 |
-| `movement-proposition.mp3` | "Movement Proposition" by Kevin MacLeod (incompetech.com), CC BY 4.0 |
-| `unholy-knight.mp3` | "Unholy Knight" by Kevin MacLeod (incompetech.com), CC BY 4.0 — ISRC USUAN1700052 |
+| `chipper.mp3` | "Chipper" by Kevin MacLeod (incompetech.com), Licensed under Creative Commons: By Attribution 4.0 |
+| `cool-rock.mp3` | "Cool Rock" by Kevin MacLeod (incompetech.com), Licensed under Creative Commons: By Attribution 4.0 |
+| `hotrock.mp3` | "Hotrock" by Kevin MacLeod (incompetech.com), Licensed under Creative Commons: By Attribution 4.0 |
+| `gearhead.mp3` | "Gearhead" by Kevin MacLeod (incompetech.com), Licensed under Creative Commons: By Attribution 4.0 |
+| `feelin-good.mp3` | "Feelin Good" by Kevin MacLeod (incompetech.com), Licensed under Creative Commons: By Attribution 4.0 |
+| `delay-rock.mp3` | "Delay Rock" by Kevin MacLeod (incompetech.com), Licensed under Creative Commons: By Attribution 4.0 |
+| `retrofuture-clean.mp3` | "RetroFuture Clean" by Kevin MacLeod (incompetech.com), Licensed under Creative Commons: By Attribution 4.0 |
 
-De onde vieram os arquivos: Volatile Reaction, Heroic Age e Unholy Knight do pacote "Minstrel: Music I"
-(github.com/Sayshal/minstrel-packs-music-01, `assets/audio/ATTRIBUTION.txt`); Getting it Done da Peluqueria
-(FeatureTesting); as demais de cópias públicas no GitHub com as etiquetas originais do incompetech (autor,
-título e ISRC conferidos em cada arquivo antes da conversão).
+De onde vieram os arquivos: as do HoliznaCC0 e as do Kevin MacLeod (menos Feelin Good) do repositório público
+github.com/jeffrey-stellar/stellar-grooves (`demo/audio/`, créditos em `demo/audio/CREDITS.md`, o mesmo acervo do
+Vruuum); Feelin Good da Peluqueria (FeatureTesting). Autor e título conferidos nas etiquetas dos arquivos do Kevin MacLeod.
 
 ## Ícone
 
