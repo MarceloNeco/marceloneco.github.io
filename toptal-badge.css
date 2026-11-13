@@ -1,0 +1,36 @@
+/* =====================================================================
+   toptal-badge.css — selo "Top 3% Talent · Vetted by Toptal" (componente isolado, v2.7, 13/Nov/2026)
+   Como funciona (sem dependência e sem chamada externa):
+     · o HTML do selo fica em index.html, no rodapé, dentro de <div class="toptal-badge" data-recurso="portal.toptal-badge" hidden>;
+     · nasce ESCONDIDO; só aparece quando o RootifyONE (Controle dos apps → Portal) liga o recurso
+       "portal.toptal-badge" e publica — quem decide é o recursos.js (toptal-badge.js lê SolverRecursos.ligado);
+     · imagem: assets/toptal-badge-white.webp no tema escuro. Preparado para tema claro: quando o Portal
+       ganhar a opção, basta pôr <html data-theme="light"> (ou deixar o aparelho decidir) e acrescentar
+       <img class="tt-blue" src="assets/toptal-badge-blue.webp"> ao lado da branca; as regras abaixo já trocam.
+   Para mudar de lugar quando o site for reformulado: mova o <div class="toptal-badge"> e ajuste só este arquivo.
+   ===================================================================== */
+.toptal-badge { line-height: 0; flex-shrink: 0; width: 64px; }
+.toptal-badge[hidden] { display: none; }
+.toptal-badge a { display: inline-block; min-width: 44px; min-height: 44px; border-radius: 8px; }
+.toptal-badge a:focus-visible { outline: 2px solid var(--copper, #d6a57c); outline-offset: 3px; }
+.toptal-badge img { display: block; width: 100%; height: auto; filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.45)); }
+
+/* tema: o Portal hoje é só escuro (sem data-theme) e mostra a branca; a azul se perde no fundo escuro.
+   Quando o Portal ganhar a opção de tema, ele põe data-theme="light" ou "dark" no <html> (seguindo o aparelho
+   ou a escolha da pessoa) e a troca acontece sozinha, sem recarregar. Sem data-theme, nada muda. */
+.toptal-badge .tt-blue { display: none; }
+:root[data-theme="light"] .toptal-badge .tt-white { display: none; }
+:root[data-theme="light"] .toptal-badge .tt-blue { display: block; }
+
+/* rodapé: celular = selo à esquerda, textos empilhados ao lado; computador = tudo numa linha, centralizado.
+   A classe "com-selo-toptal" é posta no <html> pelo toptal-badge.js quando o selo está ligado (o rodapé cresce e a
+   ilustração do modo palco encolhe um pouco, porque --foot entra na conta da altura dela). */
+footer .rodape-textos { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; text-align: left; }
+footer .rodape-textos .admin { flex-basis: auto; }
+footer .rodape-textos > span[aria-hidden="true"] { display: none; }   /* o "·" solto não faz sentido em coluna */
+@media (min-width: 900px) and (min-aspect-ratio: 5/4) {
+  html.com-selo-toptal { --foot: 94px; }
+  .toptal-badge { margin-right: 10px; }
+  footer .rodape-textos { flex-direction: row; align-items: center; gap: 8px; text-align: center; }
+  footer .rodape-textos > span[aria-hidden="true"] { display: inline; }
+}

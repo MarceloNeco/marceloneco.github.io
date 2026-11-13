@@ -1,0 +1,12 @@
+{
+  "formato": 1,
+  "app": "portal",
+  "versao": "2.7",
+  "recursos": [
+    { "id": "portal.toptal-badge", "padrao": false,
+      "pt": "Selo Toptal (Top 3% Talent) no rodapé",
+      "en": "Toptal badge (Top 3% Talent) in the footer",
+      "onde": { "pt": "Rodapé do Portal; nasce desligado", "en": "Portal footer; starts off" } }
+  ],
+  "comportamentos": []
+}
