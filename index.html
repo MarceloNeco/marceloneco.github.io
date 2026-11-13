@@ -12,16 +12,19 @@
   <meta property="og:url" content="https://marceloneco.github.io/">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231b1c1f'/%3E%3Ctext x='32' y='48' font-family='Georgia,serif' font-size='46' font-weight='700' text-anchor='middle' fill='%23c9936b'%3E1%3C/text%3E%3C/svg%3E">
   <link rel="preload" as="image" href="fundo.jpg">
+  <link rel="stylesheet" href="toptal-badge.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Manrope:wght@400;500;700&display=swap" rel="stylesheet">
 
   <!--
     ============================================================
-    PORTAL DE PROJETOS — versão 2.4
+    PORTAL DE PROJETOS — versão 2.7
     Arquivos que precisam estar juntos na raiz do repositório:
       index.html  (este arquivo)
       fundo.jpg   (a imagem de fundo)
+      recursos.js, recursos-do-app.json (interruptores do RootifyONE)
+      toptal-badge.css, toptal-badge.js, assets/toptal-badge-white.webp (selo da Toptal, v2.7)
     Para mudar um link, nome ou descrição de app, procure a lista
     "APPS" lá embaixo, no fim deste arquivo.
     ============================================================
@@ -279,12 +282,23 @@
   </main>
 
   <footer>
-    <span><span data-i18n="connect">Conecte-se comigo no</span>
-      <a href="https://www.linkedin.com/in/marcelodepaulafreitas1979/" target="_blank" rel="noopener">LinkedIn</a></span>
-    <span class="sep-admin" aria-hidden="true">·</span>
-    <a class="admin" href="https://rootify-one.pages.dev/" target="_blank" rel="noopener">RootifyONE · admin</a>
-    <span aria-hidden="true">·</span>
-    <span class="ver">v2.6</span>
+    <!-- Selo "Top 3% Talent · Vetted by Toptal" (v2.7): componente isolado (toptal-badge.css/.js), nasce escondido;
+         o RootifyONE → Controle dos apps → Portal liga "portal.toptal-badge". Endereço oficial do perfil, sem mudar. -->
+    <div class="toptal-badge" id="toptal-badge" data-recurso="portal.toptal-badge" hidden>
+      <a href="https://www.toptal.com/product-managers/resume/marcelo-freitas#4L3o7r" target="_blank" rel="noopener"
+         title="Top 3% Talent · Vetted by Toptal" aria-label="Top 3% Talent — verificado pela Toptal / Vetted by Toptal (abre em nova aba / opens in a new tab)">
+        <img class="tt-white" src="assets/toptal-badge-white.webp" width="208" height="240" loading="lazy"
+             alt="Top 3% Talent — verificado pela Toptal / Top 3% Talent — Vetted by Toptal">
+      </a>
+    </div>
+    <div class="rodape-textos">
+      <span><span data-i18n="connect">Conecte-se comigo no</span>
+        <a href="https://www.linkedin.com/in/marcelodepaulafreitas1979/" target="_blank" rel="noopener">LinkedIn</a></span>
+      <span class="sep-admin" aria-hidden="true">·</span>
+      <a class="admin" href="https://rootify-one.pages.dev/" target="_blank" rel="noopener">RootifyONE · admin</a>
+      <span aria-hidden="true">·</span>
+      <span class="ver">v2.7</span>
+    </div>
   </footer>
 
   <script>
@@ -490,5 +504,8 @@
     } catch (e) {}
     setLang(start);
   </script>
+  <!-- interruptores do RootifyONE (recursos.js, cópia do master em rootify-one) e o selo da Toptal -->
+  <script src="recursos.js" data-app="portal"></script>
+  <script src="toptal-badge.js"></script>
 </body>
 </html>
